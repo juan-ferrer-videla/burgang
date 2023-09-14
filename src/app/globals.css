@@ -2,26 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    color-scheme: dark;
+  }
+  html {
+    @apply scroll-smooth bg-zinc-950 text-white;
+  }
+
+  h1 {
+    @apply text-3xl font-semibold sm:text-4xl md:text-5xl;
+  }
+  h2 {
+    @apply text-2xl font-medium md:text-3xl;
+  }
+  h3 {
+    @apply text-lg font-medium md:text-xl;
+  }
+  textarea {
+    @apply resize-none;
+  }
+  hr {
+    @apply my-6 h-[1px] w-full border-none bg-gradient-to-r from-transparent via-current to-transparent;
+  }
+  label {
+    @apply text-start;
+  }
+  table {
+    @apply rounded border border-zinc-700  bg-zinc-900/50;
+  }
+
+  tbody > tr {
+    @apply border-t border-t-zinc-700;
+  }
+  th {
+    @apply font-medium;
+  }
+  td {
+    @apply px-4 py-2;
+  }
+  th {
+    @apply px-4 py-4;
+  }
+  strong {
+    @apply font-semibold;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer utilities {
+  .mobile-center {
+    margin-top: 50vh;
+    margin-top: 50svh;
+    @apply -translate-y-1/2;
+  }
+  .balance {
+    text-wrap: balance;
+  }
+  .bdrop {
+    filter: drop-shadow(2px 10px 10px #ffbf00);
+  }
 }

@@ -1,0 +1,1 @@
+export const SPLITTER = "KJFZ2S12H4KAS3";

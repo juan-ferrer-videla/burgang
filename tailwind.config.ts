@@ -1,20 +1,43 @@
-import type { Config } from 'tailwindcss'
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      inter: ["var(--font-inter)", ...fontFamily.sans],
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      container: {
+        center: true,
+        padding: { DEFAULT: "1rem", sm: "2rem", md: "3rem" },
       },
+      dropShadow: {
+        custom: "2px 10px 10px #ffbf00",
+      },
+      gridTemplateColumns: {
+        responsive: "repeat(auto-fit, minmax(20rem, 1fr))",
+      },
+      screens: {
+        "3xl": "1720px",
+      },
+      keyframes: {
+        increase: {
+          "0%": { transform: "scale(0.5)" },
+          "80%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      colors: {
+        primary: "#ff9200",
+        weak: "#888888",
+      },
+      animation: { increase: "increase 1.4s ease-in-out forwards" },
     },
   },
   plugins: [],
-}
-export default config
+};
