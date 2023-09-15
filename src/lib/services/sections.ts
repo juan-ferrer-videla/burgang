@@ -11,13 +11,15 @@ export const getSections = async () => {
 export const createSection = async (
   title: string,
   description: string,
-  order: number
+  order: number,
+  special: boolean,
 ) => {
   await prisma.section.create({
     data: {
       title,
       description,
       order,
+      special,
     },
   });
 };
@@ -33,16 +35,20 @@ export const deleteSection = async (id: string) => {
 export const updateSection = async (
   id: string,
   title: string,
-  description: string
+  description: string,
+  special: boolean,
 ) => {
-  await prisma.section.update({ where: { id }, data: { title, description } });
+  await prisma.section.update({
+    where: { id },
+    data: { title, description, special },
+  });
 };
 
 export const moveSectionDown = async (
   order: number,
   id: string,
   nextId: string,
-  nextOrder: number
+  nextOrder: number,
 ) => {
   await Promise.all([
     prisma.section.update({ where: { id }, data: { order: nextOrder } }),
@@ -53,7 +59,7 @@ export const moveSectionUp = async (
   order: number,
   id: string,
   prevId: string,
-  prevOrder: number
+  prevOrder: number,
 ) => {
   await Promise.all([
     prisma.section.update({ where: { id }, data: { order: prevOrder } }),

@@ -12,9 +12,15 @@ interface Props {
   sectionId: string;
   title: string;
   description: string;
+  special: boolean;
 }
 
-const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
+const UpdateSection: FC<Props> = ({
+  sectionId,
+  title,
+  description,
+  special,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -26,7 +32,8 @@ const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
   const handleAction = async (data: FormData) => {
     const title = data.get("title") as string;
     const description = data.get("description") as string;
-    await updateSectionAction(sectionId, title, description);
+    const special = data.get("special") === "special";
+    await updateSectionAction(sectionId, title, description, special);
     handleClose();
   };
 
@@ -38,7 +45,7 @@ const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
       {isOpen && (
         <Modal handleClose={handleClose}>
           <form action={handleAction}>
-            <h2 className="mt-2 mb-8 text-center">Editar Seccion</h2>
+            <h2 className="mb-8 mt-2 text-center">Editar Seccion</h2>
             <Input
               label="Titulo"
               required
@@ -51,7 +58,29 @@ const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
               defaultValue={description}
               name="description"
             />
-            <div className="flex items-center justify-between mt-8">
+            <div className="mb-2 flex gap-x-2">
+              <label htmlFor="special">Especial</label>
+              <input
+                type="radio"
+                name="special"
+                required
+                id="special"
+                value="special"
+                defaultChecked={special}
+              />
+            </div>
+            <div className="mb-2 flex gap-x-2">
+              <label htmlFor="normal">Normal</label>
+              <input
+                type="radio"
+                name="special"
+                required
+                id="normal"
+                value="normal"
+                defaultChecked={!special}
+              />
+            </div>
+            <div className="mt-8 flex items-center justify-between">
               <UpdateSectionSubmit />
               <button type="button" onClick={handleClose}>
                 Cancelar

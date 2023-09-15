@@ -11,8 +11,8 @@ const Home = async () => {
 
   return (
     <>
-      <header className="bg-emerald-900 px-4 py-2 sticky top-0 shadow-md shadow-zinc-950 z-10">
-        <nav className="max-w-screen-3xl mx-auto">
+      <header className="sticky top-0 z-10 bg-emerald-900 px-4 py-2 shadow-md shadow-zinc-950">
+        <nav className="mx-auto max-w-screen-3xl">
           <ul className="flex gap-x-4">
             <li>
               <Link href={"/admin"} className="text-xl">
@@ -28,18 +28,19 @@ const Home = async () => {
         </nav>
       </header>
       <main className="container">
-        <h1 className="text-center my-10 lg:text-6xl">
+        <h1 className="my-10 text-center lg:text-6xl">
           Administrador de contenido
         </h1>
         <CreateSection max={max} />
         {sections.map(
           (
-            { id: sectionId, title, description, products, order },
+            { id: sectionId, title, description, products, order, special },
             index,
-            arr
+            arr,
           ) => (
             <Fragment key={sectionId}>
               <Section
+                special={special}
                 sectionId={sectionId}
                 title={title}
                 description={description}
@@ -52,7 +53,7 @@ const Home = async () => {
               />
               {arr.length - 1 !== index && <hr />}
             </Fragment>
-          )
+          ),
         )}
       </main>
     </>

@@ -25,9 +25,10 @@ export const getSectionsAction = cache(async () => {
 export const createSectionAction = async (
   title: string,
   description: string,
-  order: number
+  order: number,
+  special: boolean,
 ) => {
-  await createSection(title, description, order);
+  await createSection(title, description, order, special);
   revalidatePath("/admin/content-manager");
 };
 
@@ -39,23 +40,25 @@ export const deleteSectionAction = async (id: string) => {
 export const updateSectionAction = async (
   id: string,
   title: string,
-  description: string
+  description: string,
+  special: boolean,
 ) => {
-  await updateSection(id, title, description);
+  await updateSection(id, title, description, special);
   revalidatePath("/admin/content-manager");
 };
 
 export const createProductAction = async (
   title: string,
   description: string,
-  price: number,
+  price_cash: number,
+  price_card: number,
   sectionId: string,
   order: number,
-  discount: number
+  discount: number,
 ) => {
   await createProduct(
-    { title, description, price, order, discount },
-    sectionId
+    { title, description, price_cash, price_card, order, discount },
+    sectionId,
   );
   revalidatePath("/admin/content-manager");
 };
@@ -69,10 +72,11 @@ export const updateProductAction = async (
   id: string,
   title: string,
   description: string,
-  price: number,
-  discount: number
+  price_cash: number,
+  price_card: number,
+  discount: number,
 ) => {
-  await updateProduct(id, price, title, description, discount);
+  await updateProduct(id, price_cash, price_card, title, description, discount);
   revalidatePath("/admin/content-manager");
 };
 
@@ -80,7 +84,7 @@ export const moveSectionDownAction = async (
   order: number,
   id: string,
   nextId: string,
-  nextOrder: number
+  nextOrder: number,
 ) => {
   await moveSectionDown(order, id, nextId, nextOrder);
   revalidatePath("/admin/content-manager");
@@ -89,7 +93,7 @@ export const moveSectionUpAction = async (
   order: number,
   id: string,
   prevId: string,
-  prevOrder: number
+  prevOrder: number,
 ) => {
   await moveSectionUp(order, id, prevId, prevOrder);
   revalidatePath("/admin/content-manager");
@@ -99,7 +103,7 @@ export const moveProductDownAction = async (
   id: string,
   order: number,
   nextId: string,
-  nextOrder: number
+  nextOrder: number,
 ) => {
   await moveProductDown(order, id, nextId, nextOrder);
   revalidatePath("/admin/content-manager");
@@ -108,7 +112,7 @@ export const moveProductUpAction = async (
   id: string,
   order: number,
   prevId: string,
-  prevOrder: number
+  prevOrder: number,
 ) => {
   await moveProductUp(order, id, prevId, prevOrder);
   revalidatePath("/admin/content-manager");

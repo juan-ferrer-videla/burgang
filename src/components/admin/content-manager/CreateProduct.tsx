@@ -27,17 +27,19 @@ const CreateProduct: FC<{ sectionId: string; products: TProduct[] }> = ({
   const action = async (data: FormData) => {
     const name = data.get("title") as string;
     const description = data.get("description") as string;
-    const price = Number(data.get("price"));
+    const price_cash = Number(data.get("cash"));
+    const price_card = data.get("card") ? Number(data.get("card")) : 0;
     const sectionId = data.get("sectionId") as string;
     const discount = Number(data.get("discount"));
 
     await createProductAction(
       name,
       description,
-      price,
+      price_cash,
+      price_card,
       sectionId,
       order,
-      discount
+      discount,
     );
     formRef.current?.reset();
     handleClose();
@@ -46,7 +48,7 @@ const CreateProduct: FC<{ sectionId: string; products: TProduct[] }> = ({
   return (
     <>
       <button
-        className="block px-6 py-2 bg-emerald-900/40 rounded-full border border-emerald-700 hover:bg-emerald-900 disabled:border-zinc-700 disabled:bg-zinc-800 enabled:active:scale-95"
+        className="block rounded-full border border-emerald-700 bg-emerald-900/40 px-6 py-2 hover:bg-emerald-900 enabled:active:scale-95 disabled:border-zinc-700 disabled:bg-zinc-800"
         onClick={handleOpen}
       >
         Crear producto
@@ -57,7 +59,8 @@ const CreateProduct: FC<{ sectionId: string; products: TProduct[] }> = ({
             <h2 className="my-2 mb-6">Crear nuevo producto</h2>
             <Input label="Titulo" name="title" required autoFocus />
             <Textarea label="Descripción" name="description" />
-            <Input label="Precio" name="price" type="number" required />
+            <Input label="Precio Efectivo" name="cash" type="number" required />
+            <Input label="Precio otro método" name="card" type="number" />
             <Input
               label="Descuento"
               name="discount"
@@ -67,7 +70,7 @@ const CreateProduct: FC<{ sectionId: string; products: TProduct[] }> = ({
               defaultValue={0}
             />
             <input type="hidden" name="sectionId" value={sectionId} required />
-            <div className="flex items-center justify-between mt-8">
+            <div className="mt-8 flex items-center justify-between">
               <CreateProductSubmit />
               <button onClick={handleClose} type="button">
                 Cancelar

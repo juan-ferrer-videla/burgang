@@ -3,12 +3,13 @@ import prisma from "../prisma";
 export const createProduct = async (
   product: {
     order: number;
-    price: number;
+    price_cash: number;
+    price_card: number;
     title: string;
     description: string;
     discount: number;
   },
-  sectionId: string
+  sectionId: string,
 ) => {
   if (product.discount < 0 || product.discount > 100) return;
   await prisma.product.create({
@@ -26,17 +27,18 @@ export const deleteProduct = async (id: string) => {
 
 export const updateProduct = async (
   id: string,
-  price: number,
+  price_cash: number,
+  price_card: number,
   title: string,
   description: string,
-  discount: number
+  discount: number,
 ) => {
   if (discount < 0 || discount > 100) return;
   await prisma.product.update({
     where: {
       id,
     },
-    data: { price, title, description, discount },
+    data: { price_cash, price_card, title, description, discount },
   });
 };
 
@@ -44,7 +46,7 @@ export const moveProductDown = async (
   order: number,
   id: string,
   nextId: string,
-  nextOrder: number
+  nextOrder: number,
 ) => {
   await Promise.all([
     prisma.product.update({ where: { id }, data: { order: nextOrder } }),
@@ -55,7 +57,7 @@ export const moveProductUp = async (
   order: number,
   id: string,
   prevId: string,
-  prevOrder: number
+  prevOrder: number,
 ) => {
   await Promise.all([
     prisma.product.update({ where: { id }, data: { order: prevOrder } }),

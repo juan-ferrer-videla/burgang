@@ -9,16 +9,19 @@ import {
 } from "@/actions/content-manager";
 import { TProduct } from "@/types";
 
-export const Product: FC<{
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  order: number;
-  discount: number;
-  products: TProduct[];
-  index: number;
-}> = ({ description, id, price, title, order, products, index, discount }) => {
+export const Product: FC<
+  TProduct & { products: TProduct[]; index: number }
+> = ({
+  description,
+  id,
+  price_cash,
+  price_card,
+  title,
+  order,
+  products,
+  index,
+  discount,
+}) => {
   const prev = products[index - 1];
   const next = products[index + 1];
 
@@ -43,19 +46,20 @@ export const Product: FC<{
               aria-label="price without discount"
               className="text-red-500 line-through"
             >
-              {price}
+              {price_cash}
             </p>
             <p aria-label="price with discount">
-              {((100 - discount) * price) / 100}
+              {((100 - discount) * price_cash) / 100}
             </p>
           </div>
         ) : (
-          price
+          price_cash
         )}
       </td>
+      <td>{price_card || "-"}</td>
       <td>{discount ? discount + "%" : "-"}</td>
       <td>
-        <ul className="flex justify-center items-center">
+        <ul className="flex items-center justify-center">
           <li>
             <DeleteProductButton id={id} />
           </li>
@@ -65,7 +69,8 @@ export const Product: FC<{
                 id,
                 title,
                 description,
-                price,
+                price_cash,
+                price_card,
                 discount,
               }}
             />

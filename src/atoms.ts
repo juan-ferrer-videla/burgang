@@ -1,5 +1,16 @@
-import { atomWithStorage } from "jotai/utils";
+import { atom } from "jotai";
 
-export type TCartAtom = Record<string, { count: number; comment: string }>;
+export type TCartAtom = Record<
+  string,
+  {
+    count: number;
+    comment: string;
+    title: string;
+    price_cash: number;
+    price_card: number;
+    isVeggie: boolean;
+    isCeliac: boolean;
+  }
+>;
 
-export const cartAtom = atomWithStorage<TCartAtom>("cartYummy", {});
+export const cartAtom = atom<TCartAtom>({});

@@ -5,7 +5,7 @@ import DeleteSectionButton from "./DeleteSectionButton";
 import CreateProduct from "./CreateProduct";
 import UpdateSection from "./UpdateSection";
 import { Product } from "./Product";
-import { type TProduct } from "@/types";
+import { TSection, type TProduct } from "@/types";
 import {
   moveSectionUpAction,
   moveSectionDownAction,
@@ -18,25 +18,15 @@ export const Section: FC<{
   sectionId: string;
   title: string;
   order: number;
+  special: boolean;
   description: string;
   products: TProduct[];
   isFirst: boolean;
   isLast: boolean;
   index: number;
-  sections: {
-    id: string;
-    title: string;
-    description: string;
-    order: number;
-    products: {
-      id: string;
-      description: string;
-      title: string;
-      price: number;
-      discount: number;
-    }[];
-  }[];
+  sections: TSection[];
 }> = ({
+  special,
   description,
   products,
   sectionId,
@@ -58,7 +48,7 @@ export const Section: FC<{
 
   return (
     <section className="my-10">
-      <div className="flex space-x-6 justify-center items-center mb-6">
+      <div className="mb-6 flex items-center justify-center space-x-6">
         <div>
           <h2 className="text-center">{title}</h2>
           {description && <p className="text-center">{description}</p>}
@@ -67,6 +57,7 @@ export const Section: FC<{
           sectionId={sectionId}
           title={title}
           description={description}
+          special={special}
         />
         <div className="grid">
           {!isFirst && <MoveUpButton moveUp={moveUp} />}
@@ -76,38 +67,51 @@ export const Section: FC<{
       <CreateProduct sectionId={sectionId} products={products} />
       {products.length > 0 ? (
         <div className="overflow-auto">
-          <table className="w-full text-center my-6 min-w-[30rem] rounded overflow-hidden">
+          <table className="my-6 w-full min-w-[30rem] overflow-hidden rounded text-center">
             <caption className="sr-only">Productos</caption>
             <thead className="bg-emerald-950">
               <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Precio</th>
+                <th>Efectivo</th>
+                <th>Otro método</th>
                 <th>Descuento</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {products.map(
-                ({ id, title, description, price, order, discount }, index) => (
+                (
+                  {
+                    id,
+                    title,
+                    description,
+                    price_cash,
+                    price_card,
+                    order,
+                    discount,
+                  },
+                  index,
+                ) => (
                   <Product
                     key={id}
                     id={id}
                     title={title}
                     description={description}
-                    price={price}
+                    price_cash={price_cash}
+                    price_card={price_card}
                     order={order}
                     discount={discount}
                     products={products}
                     index={index}
                   />
-                )
+                ),
               )}
             </tbody>
           </table>
         </div>
       ) : (
-        <p className="text-center my-6">No tienes productos aún.</p>
+        <p className="my-6 text-center">No tienes productos aún.</p>
       )}
 
       <DeleteSectionButton id={sectionId} />

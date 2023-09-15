@@ -6,14 +6,16 @@ import { cartAtom } from "@/atoms";
 import { PlusIcon } from "../Icons/PlusIcon";
 import { MinusIcon } from "../Icons/MinusIcon";
 
-export const Counter: FC<{ id: string }> = ({ id }) => {
-  const productCountAtom = useMemo(
-    () => atom((get) => get(cartAtom)[id]?.count || 0),
-    [id],
-  );
-  const count = useAtomValue(productCountAtom);
+export const Counter: FC<{
+  id: string;
+  title: string;
+  price_cash: number;
+  price_card: number;
+}> = ({ id, title, price_card, price_cash }) => {
+  const count = useAtomValue(cartAtom)[id]?.count || 0;
   const setCount = useSetAtom(cartAtom);
   const decrement = () => {
+    if (count < 1) return;
     setCount((prev) => ({
       ...prev,
       [id]: { ...prev[id], count: prev[id].count - 1 },
@@ -22,17 +24,19 @@ export const Counter: FC<{ id: string }> = ({ id }) => {
   const increment = () => {
     setCount((prev) => ({
       ...prev,
-      [id]: { ...prev[id], count: prev[id]?.count ? prev[id].count + 1 : 1 },
+      [id]: {
+        ...prev[id],
+        count: prev[id]?.count ? prev[id].count + 1 : 1,
+        title,
+        price_card,
+        price_cash,
+      },
     }));
   };
 
   return (
-    <div className="flex items-center justify-center gap-x-2">
-      <button
-        className="rounded bg-black p-1 text-primary"
-        disabled={count < 1}
-        onClick={decrement}
-      >
+    <div className="mb-4 flex items-center justify-center gap-x-2">
+      <button className="rounded bg-black p-1 text-primary" onClick={decrement}>
         <MinusIcon />
       </button>
       <p className="min-w-[3ch] text-lg font-semibold md:text-2xl">{count}</p>

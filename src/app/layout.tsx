@@ -1,10 +1,15 @@
 import "./globals.css";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Merienda } from "next/font/google";
 import { type Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+const shadows = Merienda({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-shadows",
 });
 
 const metadataTitle = "Yummy";
@@ -30,8 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body className={`${inter.className}  min-h-screen `}>{children}</body>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${shadows.variable} ${inter.variable}  min-h-screen `}>
+        {children}
+      </body>
     </html>
   );
 }

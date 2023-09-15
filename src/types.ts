@@ -3,6 +3,7 @@ export type TSection = {
   title: string;
   description: string;
   order: number;
+  special: boolean;
   products: TProduct[];
 };
 
@@ -11,6 +12,7 @@ export type TProduct = {
   description: string;
   discount: number;
   title: string;
-  price: number;
+  price_cash: number;
+  price_card: number;
   order: number;
 };

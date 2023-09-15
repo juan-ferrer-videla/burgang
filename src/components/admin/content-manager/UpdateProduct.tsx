@@ -7,19 +7,14 @@ import Input from "@/components/common/Input";
 import Textarea from "@/components/common/Textarea";
 import { EditIcon } from "@/components/Icons/EditIcon";
 import UpdateProductSubmit from "./UpdateProductSubmit";
+import { TProduct } from "@/types";
 
 interface Props {
-  defaultProduct: {
-    id: string;
-    title: string;
-    description: string;
-    price: number;
-    discount: number;
-  };
+  defaultProduct: Omit<TProduct, "order">;
 }
 
 export const UpdateProduct: FC<Props> = ({
-  defaultProduct: { description, id, price, title, discount },
+  defaultProduct: { description, id, price_cash, price_card, title, discount },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,21 +27,29 @@ export const UpdateProduct: FC<Props> = ({
   const handleAction = async (data: FormData) => {
     const title = data.get("title") as string;
     const description = data.get("description") as string;
-    const price = Number(data.get("price"));
+    const price_cash = Number(data.get("cash"));
+    const price_card = Number(data.get("card"));
     const discount = Number(data.get("discount"));
-    await updateProductAction(id, title, description, price, discount);
+    await updateProductAction(
+      id,
+      title,
+      description,
+      price_cash,
+      price_card,
+      discount,
+    );
     handleClose();
   };
 
   return (
     <>
-      <button onClick={handleOpen} className="enabled:active:scale-95 p-2">
+      <button onClick={handleOpen} className="p-2 enabled:active:scale-95">
         <EditIcon />
       </button>
       {isOpen && (
         <Modal handleClose={handleClose}>
           <form action={handleAction}>
-            <h2 className="mt-2 mb-8 text-center">Editar Producto</h2>
+            <h2 className="mb-8 mt-2 text-center">Editar Producto</h2>
             <Input
               label="Titulo"
               required
@@ -60,10 +63,17 @@ export const UpdateProduct: FC<Props> = ({
               name="description"
             />
             <Input
-              label="Precio"
+              label="Precio Efectivo"
               required
-              defaultValue={price}
-              name="price"
+              defaultValue={price_cash}
+              name="cash"
+              type="number"
+            />
+            <Input
+              label="Precio otro método"
+              required
+              defaultValue={price_card}
+              name="card"
               type="number"
             />
             <Input
@@ -75,7 +85,7 @@ export const UpdateProduct: FC<Props> = ({
               min={0}
               max={100}
             />
-            <div className="flex items-center justify-between mt-8">
+            <div className="mt-8 flex items-center justify-between">
               <UpdateProductSubmit />
               <button type="button" onClick={handleClose}>
                 Cancelar

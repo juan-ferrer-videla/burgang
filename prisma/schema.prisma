@@ -12,7 +12,8 @@ datasource db {
 
 model Product {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  price Int
+  price_cash Int
+  price_card Int @default(0)
   title String
   description String @default("")
   order Int
@@ -26,6 +27,7 @@ model Section {
   title String
   description String @default("")
   order Int
+  special Boolean
   products Product[]
 }
 

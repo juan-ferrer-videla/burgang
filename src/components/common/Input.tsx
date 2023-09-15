@@ -21,7 +21,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       required,
       ...props
     },
-    ref
+    ref,
   ) => {
     const id = label.toLowerCase().replace(" ", "-");
 
@@ -32,7 +32,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       <div
         className={`${
           type === "checkbox"
-            ? "flex space-x-4 items-center justify-center"
+            ? "flex items-center justify-center space-x-4"
             : "grid"
         } mb-4`}
       >
@@ -50,12 +50,12 @@ const Input = forwardRef<HTMLInputElement, Props>(
         <div className="relative flex items-center">
           <input
             className={`w-full ${
-              type === "checkbox" ? "w-4 h-4" : ""
-            } p-2 rounded ${password ? "pr-12" : ""} ${className}`}
+              type === "checkbox" ? "h-4 w-4" : ""
+            } rounded p-2 ${password ? "pr-12" : ""} ${className}`}
             type={isPassword ? "password" : type}
             id={id}
             ref={ref}
-            required
+            required={required ?? false}
             {...props}
           />
           {password && (
@@ -70,7 +70,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         </div>
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";
