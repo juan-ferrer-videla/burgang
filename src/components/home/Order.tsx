@@ -1,12 +1,13 @@
 "use client";
 
-import { cartAtom } from "@/atoms";
+import { cartAtom, isOpenOrderAtom } from "@/atoms";
 import { useAtomValue } from "jotai";
 import React, { useMemo } from "react";
 import { PriceCard } from "./Price";
 
 const Order = () => {
   const order = useAtomValue(cartAtom);
+  const isOpen = useAtomValue(isOpenOrderAtom);
   const totalCash = useMemo(
     () =>
       Object.values(order).reduce(
@@ -58,26 +59,20 @@ const Order = () => {
     [order],
   );
   return (
-    <aside className="text-white">
+    <aside
+      className={`fixed inset-0 min-h-screen w-full bg-zinc-950 pt-20 ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } text-white `}
+    >
       <ul>
-        {orderToBuy.map(
-          ({
-            count,
-            id,
-            isCeliac,
-            title,
-            isVeggie,
-            price_card,
-            price_cash,
-          }) => (
-            <li key={id}>
-              <h3>{title}</h3>
-              <p>{count}</p>
-              {isCeliac && <p>Sin TACC</p>}
-              {isVeggie && <p>Veggie</p>}
-            </li>
-          ),
-        )}
+        {orderToBuy.map(({ count, id, isCeliac, title, isVeggie }) => (
+          <li key={id}>
+            <h3>{title}</h3>
+            <p>{count}</p>
+            {isCeliac && <p>Sin TACC</p>}
+            {isVeggie && <p>Veggie</p>}
+          </li>
+        ))}
       </ul>
 
       <PriceCard price_card={totalCard} price_cash={totalCash} />
