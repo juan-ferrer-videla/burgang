@@ -7,13 +7,19 @@ export const PriceCard: FC<{
 }> = ({ price_card, price_cash }) => (
   <div className="mb-2 flex gap-x-5 sm:gap-x-6 md:gap-x-8 lg:gap-x-10">
     <div className="grid place-content-center rounded-full font-semibold sm:text-lg  md:text-xl lg:text-2xl">
-      <small className="font-bold">Efectivo</small>
-      <p className="text-lg font-black italic">${price_cash}</p>
+      <small className="font-bold sm:text-lg md:text-xl lg:text-2xl">
+        Efectivo
+      </small>
+      <p className="text-lg font-black sm:text-xl md:text-2xl">${price_cash}</p>
     </div>
     {price_card > 0 && (
       <div className="grid place-content-center rounded-full font-semibold sm:text-lg md:text-xl lg:text-2xl">
-        <small className="font-bold">Otro método</small>
-        <p className="text-lg font-black italic">${price_card}</p>
+        <small className="font-bold sm:text-lg md:text-xl lg:text-2xl">
+          Otro método
+        </small>
+        <p className="text-lg font-black sm:text-xl md:text-2xl">
+          ${price_card}
+        </p>
       </div>
     )}
   </div>

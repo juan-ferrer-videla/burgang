@@ -16,11 +16,11 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
   return (
     <li
       key={id}
-      className="mb-4 flex flex-col items-center border-b-2 border-black pb-6 last-of-type:border-b-0"
+      className="md:b sm mb-4 flex flex-col items-center border-b-2 border-black pb-6 last-of-type:border-b-0 md:border-b-4"
     >
-      <div className="mb-4">
+      <div className="mb-4 sm:mb-5 md:mb-6 lg:mb-7 ">
         <h3
-          className={`mb-1 font-black uppercase ${
+          className={`mb-1 font-black uppercase sm:mb-2 md:mb-3 ${
             special
               ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
               : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"

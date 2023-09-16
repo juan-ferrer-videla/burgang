@@ -4,6 +4,7 @@ import { Cart } from "@/components/home/Cart";
 import { Suspense } from "react";
 import Order from "@/components/home/Order";
 import { OpenButton } from "@/components/home/OpenButton";
+import { InstagramIcon } from "@/components/Icons/InstagramIcon";
 
 export default function Home() {
   return (
@@ -11,6 +12,15 @@ export default function Home() {
       <header className="sticky top-0 z-50  border-b border-b-zinc-500/30 bg-zinc-950 px-4 py-2">
         <div className="mx-auto flex max-w-screen-3xl items-center justify-between">
           <OpenButton />
+          <nav>
+            <ul>
+              <li>
+                <a href="https://www.instagram.com/burgang.ar/" target="_blank">
+                  <InstagramIcon className="stroke-primary" size={"lg"} />
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
       <main className="mx-auto max-w-screen-3xl px-4 font-inter sm:px-8 md:px-12 lg:px-16">
