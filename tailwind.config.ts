@@ -23,6 +23,9 @@ module.exports = {
       gridTemplateColumns: {
         responsive: "repeat(auto-fit, minmax(20rem, 1fr))",
       },
+      borderWidth: {
+        10: "12px",
+      },
       screens: {
         "3xl": "1720px",
       },

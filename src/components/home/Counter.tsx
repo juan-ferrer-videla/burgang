@@ -39,7 +39,9 @@ export const Counter: FC<{
       <button className="rounded bg-black p-1 text-primary" onClick={decrement}>
         <MinusIcon />
       </button>
-      <p className="min-w-[3ch] text-lg font-semibold md:text-2xl">{count}</p>
+      <p className="min-w-[3ch] text-xl font-black sm:text-2xl md:text-3xl">
+        {count}
+      </p>
       <button className="rounded bg-black p-1 text-primary" onClick={increment}>
         <PlusIcon />
       </button>

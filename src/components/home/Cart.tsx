@@ -6,11 +6,11 @@ export const Cart = async () => {
   const sections = await getSections();
 
   return (
-    <ul className="mx-auto my-10 grid max-w-7xl gap-y-3 text-center text-black sm:gap-y-4 md:gap-y-5 lg:gap-y-6">
+    <ul className="mx-auto my-10 grid max-w-7xl gap-y-5 text-center text-black sm:gap-y-6 md:gap-y-7 lg:gap-y-8">
       {sections.map(({ id, title, description, products, special }) => (
         <li
           key={id}
-          className="mb-4 rounded bg-primary p-4 last-of-type:border-0 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16"
+          className="mb-4 rounded border-8 border-dashed border-black bg-primary p-6 shadow-lg shadow-primary/20 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16"
         >
           <div
             className={`${

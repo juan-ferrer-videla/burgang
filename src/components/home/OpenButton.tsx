@@ -13,7 +13,7 @@ export const OpenButton = () => {
   return (
     <button
       onClick={handleOpen}
-      className="rounded bg-primary px-6 py-2  font-bold uppercase text-black active:scale-95"
+      className="rounded bg-primary px-6 py-2 text-lg font-bold uppercase text-black active:scale-95"
     >
       {isOpen ? "Volver" : "Tu pedido"}
     </button>

@@ -13,7 +13,7 @@ const ProductOptions: FC<{ id: string }> = ({ id }) => {
     setProduct((prev) => ({ ...prev, [id]: { ...prev[id], [name]: checked } }));
   };
   return (
-    <div className="flex justify-between gap-x-8">
+    <div className="flex justify-between gap-x-8 sm:text-lg">
       <div className="my-3 flex items-center gap-x-1">
         <input
           onChange={handleChange}

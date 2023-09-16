@@ -16,3 +16,5 @@ export type TCartAtom = Record<
 export const cartAtom = atom<TCartAtom>({});
 
 export const isOpenOrderAtom = atom(false);
+
+export const payMethodAtom = atom<"cash" | "card">("cash");
