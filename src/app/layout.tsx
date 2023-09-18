@@ -12,8 +12,9 @@ const shadows = Merienda({
   variable: "--font-shadows",
 });
 
-const metadataTitle = "Yummy";
-const metadataDescription = "Aqui podras pedir tu comida";
+const metadataTitle = "Burgang";
+const metadataDescription =
+  "Los que conocen saben, #Burgang campeón de la mejor hamburguesa de Argentina · Burgers premium & con estilo ⛓️ · Pocas cosas tan piolas como BG con la Gang ...";
 
 export const metadata: Metadata = {
   title: metadataTitle,
