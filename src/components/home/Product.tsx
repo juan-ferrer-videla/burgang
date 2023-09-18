@@ -2,7 +2,6 @@ import { TProduct, TSection } from "@/types";
 import React, { type FC } from "react";
 import Price from "./Price";
 import { Counter } from "./Counter";
-import ProductOptions from "./ProductOptions";
 
 export const Product: FC<TProduct & { special: TSection["special"] }> = ({
   description,
@@ -45,13 +44,47 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
         price_cash={price_cash}
         price_card={price_card}
       />
-      <Counter
-        id={id}
-        title={title}
-        price_card={price_card}
-        price_cash={price_cash}
-      />
-      {special && <ProductOptions id={id} />}
+
+      {special ? (
+        <div className="grid md:grid-cols-2 md:gap-x-14 md:gap-y-4">
+          <Counter
+            option="carne"
+            id={id}
+            title={title}
+            price_card={price_card}
+            price_cash={price_cash}
+          />
+          <Counter
+            option="sin tacc"
+            id={id}
+            title={title}
+            price_card={price_card}
+            price_cash={price_cash}
+          />
+          <Counter
+            option="veggie"
+            id={id}
+            title={title}
+            price_card={price_card}
+            price_cash={price_cash}
+          />
+          <Counter
+            option="veggie y sin tacc"
+            id={id}
+            title={title}
+            price_card={price_card}
+            price_cash={price_cash}
+          />
+        </div>
+      ) : (
+        <Counter
+          option=""
+          id={id}
+          title={title}
+          price_card={price_card}
+          price_cash={price_cash}
+        />
+      )}
     </li>
   );
 };

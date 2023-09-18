@@ -3,7 +3,7 @@
 import { cartAtom, isOpenOrderAtom, payMethodAtom } from "@/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import React, { FC, FormEventHandler, useId, useMemo } from "react";
-import { TPhone } from "@/types";
+import { TOption, TPhone } from "@/types";
 import ResetOrder from "./ResetOrder";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
@@ -45,15 +45,11 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   const orderToBuy = useMemo(
     () =>
       Object.entries(order).reduce(
-        (
-          acc,
-          [id, { count, isCeliac, isVeggie, price_card, price_cash, title }],
-        ) => {
+        (acc, [id, { count, option, price_card, price_cash, title }]) => {
           if (count) {
             acc.push({
               count,
-              isCeliac,
-              isVeggie,
+              option,
               price_card,
               price_cash,
               title,
@@ -65,8 +61,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
         [] as {
           count: number;
           title: string;
-          isCeliac: boolean;
-          isVeggie: boolean;
+          option: TOption;
           price_card: number;
           price_cash: number;
           id: string;
@@ -77,21 +72,13 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
 
   let string = useMemo(
     () =>
-      Object.entries(order).reduce(
-        (acc, [_, { count, isCeliac, isVeggie, title }]) => {
-          if (count) {
-            acc += `${title.toUpperCase()} - ${count}`;
-            if (isCeliac || isVeggie) {
-              acc += `\n${isCeliac ? "Sin TACC " : ""}${
-                isVeggie ? "Veggie " : ""
-              }`;
-            }
-            acc += "\n------------------\n";
-          }
-          return acc;
-        },
-        "",
-      ),
+      Object.entries(order).reduce((acc, [_, { count, option, title }]) => {
+        if (count) {
+          acc += `${title.toUpperCase()} - ${count} - ${option}`;
+          acc += "\n------------------\n";
+        }
+        return acc;
+      }, ""),
     [order],
   );
   string += `\nMétodo de pago: ${
@@ -108,15 +95,14 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
         {totalCash > 0 ? (
           <section className="mx-auto mb-4 max-w-3xl overflow-auto rounded border-8 border-dashed border-black bg-primary p-6 text-black shadow-lg shadow-primary/20 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16">
             <ul className="">
-              {orderToBuy.map(({ count, id, isCeliac, title, isVeggie }) => (
+              {orderToBuy.map(({ count, id, title, option }) => (
                 <li key={id} className="mb-4 border-b-2 border-b-black pb-2">
                   <div className="mb-2 flex items-center justify-between gap-x-4">
                     <h3 className="text-xl font-black uppercase">{title}</h3>
                     <p className="text-xl font-black">{count}</p>
                   </div>
                   <div className="flex gap-x-3 font-shadows font-semibold">
-                    {isCeliac && <p>Sin TACC</p>}
-                    {isVeggie && <p>Veggie</p>}
+                    {option}
                   </div>
                 </li>
               ))}

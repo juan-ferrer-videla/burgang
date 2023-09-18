@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { TOption } from "./types";
 
 export type TCartAtom = Record<
   string,
@@ -8,8 +9,7 @@ export type TCartAtom = Record<
     title: string;
     price_cash: number;
     price_card: number;
-    isVeggie: boolean;
-    isCeliac: boolean;
+    option: TOption;
   }
 >;
 

@@ -37,7 +37,7 @@ const ResetOrder = () => {
             <button
               type="button"
               onClick={handleReset}
-              className="rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95"
+              className="rounded bg-primary px-6 py-2 text-lg font-bold uppercase text-black active:scale-95"
             >
               Resetear
             </button>
