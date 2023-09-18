@@ -3,9 +3,15 @@ import { CreateSection } from "@/components/admin/content-manager/CreateSection"
 import Link from "next/link";
 import { getSectionsAction } from "@/actions/content-manager";
 import { Section } from "@/components/admin/content-manager/Section";
+import { getPhonesAction } from "@/actions/phones";
+import { CreatePhone } from "@/components/admin/content-manager/CreatePhone";
+import { Phone } from "@/components/admin/content-manager/Phone";
 
 const Home = async () => {
-  const sections = await getSectionsAction();
+  const [sections, phones] = await Promise.all([
+    getSectionsAction(),
+    getPhonesAction(),
+  ]);
   const max =
     sections.length === 0 ? null : sections[sections.length - 1].order;
 
@@ -31,6 +37,27 @@ const Home = async () => {
         <h1 className="my-10 text-center lg:text-6xl">
           Administrador de contenido
         </h1>
+        <CreatePhone />
+        <div className="mb-4 overflow-auto sm:mb-6 md:mb-8">
+          {phones.length > 0 ? (
+            <table>
+              <thead className="bg-emerald-950">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Telefono</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {phones.map((phone) => (
+                  <Phone key={phone.id} {...phone} />
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No tienes telefonos añadidos</p>
+          )}
+        </div>
         <CreateSection max={max} />
         {sections.map(
           (

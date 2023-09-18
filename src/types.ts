@@ -16,3 +16,9 @@ export type TProduct = {
   price_card: number;
   order: number;
 };
+
+export type TPhone = {
+  id: string;
+  phone: string;
+  name: string;
+};

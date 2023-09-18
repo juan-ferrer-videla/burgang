@@ -36,3 +36,9 @@ model User {
   user String @unique
   password String
 }
+
+model Phone {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  phone String @unique
+}

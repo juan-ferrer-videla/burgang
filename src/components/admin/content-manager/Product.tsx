@@ -56,7 +56,27 @@ export const Product: FC<
           price_cash
         )}
       </td>
-      <td>{price_card || "-"}</td>
+      <td>
+        {price_card ? (
+          discount > 0 ? (
+            <div className="flex items-center justify-center gap-x-4">
+              <p
+                aria-label="price without discount"
+                className="text-red-500 line-through"
+              >
+                {price_card}
+              </p>
+              <p aria-label="price with discount">
+                {((100 - discount) * price_card) / 100}
+              </p>
+            </div>
+          ) : (
+            price_card
+          )
+        ) : (
+          <p>-</p>
+        )}
+      </td>
       <td>{discount ? discount + "%" : "-"}</td>
       <td>
         <ul className="flex items-center justify-center">

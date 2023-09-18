@@ -5,12 +5,13 @@ import { Suspense } from "react";
 import Order from "@/components/home/Order";
 import { OpenButton } from "@/components/home/OpenButton";
 import { InstagramIcon } from "@/components/Icons/InstagramIcon";
+import OrderWrapper from "@/components/home/OrderWrapper";
 
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-50  border-b border-b-zinc-500/30 bg-zinc-950 px-4 py-2">
-        <div className="mx-auto flex max-w-screen-3xl items-center justify-between">
+      <header className="sticky top-0 z-50  border-b border-b-zinc-500/30 bg-zinc-950 px-4 py-2 sm:py-4">
+        <div className="mx-auto flex max-w-screen-xl items-center justify-between">
           <OpenButton />
           <nav>
             <ul>
@@ -34,7 +35,16 @@ export default function Home() {
           <Cart />
         </Suspense>
       </main>
-      <Order />
+      <footer className="my-2 text-center font-inter text-sm text-primary">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://juan-ferrer.vercel.app/"
+        >
+          powered by Juan Ferrer
+        </a>
+      </footer>
+      <OrderWrapper />
     </>
   );
 }
