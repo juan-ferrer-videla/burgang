@@ -4,6 +4,7 @@ import { cartAtom, isOpenOrderAtom, payMethodAtom } from "@/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import React, { FC, FormEventHandler, useId, useMemo } from "react";
 import { TPhone } from "@/types";
+import ResetOrder from "./ResetOrder";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -201,6 +202,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
               <button className="mt-6 w-full rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
                 pedir
               </button>
+              <ResetOrder />
             </form>
           </section>
         ) : (
