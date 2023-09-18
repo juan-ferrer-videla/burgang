@@ -2,10 +2,11 @@ import Image from "next/image";
 import burgang from "@/assets/Burgang.png";
 import { Cart } from "@/components/home/Cart";
 import { Suspense } from "react";
-import Order from "@/components/home/Order";
 import { OpenButton } from "@/components/home/OpenButton";
 import { InstagramIcon } from "@/components/Icons/InstagramIcon";
 import OrderWrapper from "@/components/home/OrderWrapper";
+
+export const revalidate = 3600;
 
 export default function Home() {
   return (
