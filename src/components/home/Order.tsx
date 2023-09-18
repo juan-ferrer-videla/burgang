@@ -13,7 +13,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
     e.preventDefault();
     window.open(
       `https://wa.me/${phone}?text=${encodeURI(
-        `${string}\ndirección de envio: ${address}`,
+        `${string}\ndirección de envío: ${address}`,
       )}`,
     );
   };
@@ -93,7 +93,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
       ),
     [order],
   );
-  string += `\nMetodo de pago: ${
+  string += `\nMétodo de pago: ${
     payMethod === "cash" ? "Efectivo" : "Otro método"
   }`;
 
