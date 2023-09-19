@@ -17,7 +17,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
     window.open(
       `https://wa.me/${phone}?text=${encodeURI(
         `${string}\ndirección de envío: ${address}${
-          comment ? `\nComentario:${comment}` : ""
+          comment ? `\nComentario: ${comment}` : ""
         }`,
       )}`,
     );
@@ -199,7 +199,6 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                 id="comment"
                 name="comment"
                 className="w-full rounded bg-black p-2 font-inter text-primary"
-                required
                 minLength={4}
                 maxLength={255}
               />

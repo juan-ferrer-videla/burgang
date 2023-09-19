@@ -16,13 +16,10 @@ import {
   moveProductUp,
   updateProduct,
 } from "@/lib/services/products";
-import { cache } from "react";
 
-export const revalidate = 1800;
-
-export const getSectionsAction = cache(async () => {
+export const getSectionsAction = async () => {
   return await getSections();
-});
+};
 
 export const createSectionAction = async (
   title: string,
