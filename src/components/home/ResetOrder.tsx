@@ -23,7 +23,7 @@ const ResetOrder = () => {
         onClick={handleOpen}
         className="mt-6 w-full rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95"
       >
-        Terminar pedido
+        Vaciar carrito
       </button>
       {open && (
         <Modal handleClose={handleClose}>

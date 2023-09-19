@@ -1,12 +1,15 @@
 import prisma from "../prisma";
+import { cache } from "react";
 
-export const getSections = async () => {
+export const revalidate = 1800; // revalidate the data at most every hour
+
+export const getSections = cache(async () => {
   const sections = await prisma.section.findMany({
     include: { products: { orderBy: { order: "asc" } } },
     orderBy: { order: "asc" },
   });
   return sections;
-};
+});
 
 export const createSection = async (
   title: string,

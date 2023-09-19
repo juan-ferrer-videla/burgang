@@ -8,13 +8,17 @@ import ResetOrder from "./ResetOrder";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    const phone = new FormData(e.currentTarget).get("place") as string;
-    const address = new FormData(e.currentTarget).get("address") as string;
+    const formData = new FormData(e.currentTarget);
+    const phone = formData.get("place") as string;
+    const address = formData.get("address") as string;
+    const comment = formData.get("comment") as string;
 
     e.preventDefault();
     window.open(
       `https://wa.me/${phone}?text=${encodeURI(
-        `${string}\ndirección de envío: ${address}`,
+        `${string}\ndirección de envío: ${address}${
+          comment ? `\nComentario:${comment}` : ""
+        }`,
       )}`,
     );
   };
@@ -180,6 +184,20 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
               <textarea
                 id="address"
                 name="address"
+                className="w-full rounded bg-black p-2 font-inter text-primary"
+                required
+                minLength={4}
+                maxLength={255}
+              />
+              <label
+                htmlFor="comment"
+                className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
+              >
+                Comentario:
+              </label>
+              <textarea
+                id="comment"
+                name="comment"
                 className="w-full rounded bg-black p-2 font-inter text-primary"
                 required
                 minLength={4}
