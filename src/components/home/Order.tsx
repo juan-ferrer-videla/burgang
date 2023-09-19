@@ -175,33 +175,37 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                   </div>
                 ))}
               </fieldset>
-              <label
-                htmlFor="address"
-                className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
-              >
-                Dirección de entrega:
-              </label>
-              <textarea
-                id="address"
-                name="address"
-                className="w-full rounded bg-black p-2 font-inter text-primary"
-                required
-                minLength={4}
-                maxLength={255}
-              />
-              <label
-                htmlFor="comment"
-                className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
-              >
-                Comentario:
-              </label>
-              <textarea
-                id="comment"
-                name="comment"
-                className="w-full rounded bg-black p-2 font-inter text-primary"
-                minLength={4}
-                maxLength={255}
-              />
+              <div className="mb-4">
+                <label
+                  htmlFor="address"
+                  className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
+                >
+                  Dirección de entrega:
+                </label>
+                <textarea
+                  id="address"
+                  name="address"
+                  className="w-full rounded bg-black/40 p-2 font-inter text-lg font-semibold  text-black"
+                  required
+                  minLength={4}
+                  maxLength={255}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="comment"
+                  className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
+                >
+                  Comentario:
+                </label>
+                <textarea
+                  id="comment"
+                  name="comment"
+                  className="w-full rounded bg-black/40 p-2 font-inter text-lg font-semibold text-black"
+                  minLength={4}
+                  maxLength={255}
+                />
+              </div>
               <button className="mt-6 w-full rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
                 pedir
               </button>
