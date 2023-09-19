@@ -3,6 +3,7 @@
 import { SPLITTER } from "@/constants";
 import { changePassword, getUser } from "@/lib/services/user";
 import { compare } from "bcrypt";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -26,4 +27,6 @@ export const login = async (user: string, password: string) => {
 
 export const changePasswordAction = async (password: string, user: string) => {
   await changePassword(password, user);
+  revalidatePath("/admin/content-manager");
+  revalidatePath("/login");
 };

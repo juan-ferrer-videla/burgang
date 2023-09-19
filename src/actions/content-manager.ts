@@ -18,6 +18,8 @@ import {
 } from "@/lib/services/products";
 import { cache } from "react";
 
+export const revalidate = 1800;
+
 export const getSectionsAction = cache(async () => {
   return await getSections();
 });
