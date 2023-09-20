@@ -6,9 +6,9 @@ import { OpenButton } from "@/components/home/OpenButton";
 import { InstagramIcon } from "@/components/Icons/InstagramIcon";
 import OrderWrapper from "@/components/home/OrderWrapper";
 
-export const revalidate = 3600;
+export const revalidate = 20;
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       <header className="sticky top-0 z-50  border-b border-b-zinc-500/30 bg-zinc-950 px-4 py-2 sm:py-4">
@@ -32,9 +32,7 @@ export default function Home() {
           alt="Burgang logo"
           className="lg:py-18 mx-auto w-full max-w-4xl py-6 drop-shadow-custom sm:py-10 md:py-14"
         />
-        <Suspense fallback="loading...">
-          <Cart />
-        </Suspense>
+        <Cart />
       </main>
       <footer className="my-2 text-center font-inter text-sm text-primary">
         <a
