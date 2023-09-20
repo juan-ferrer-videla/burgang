@@ -38,6 +38,7 @@ module.exports = {
       },
       colors: {
         primary: "#ff9200",
+        secondary: "#ED78AC",
         weak: "#888888",
       },
       animation: { increase: "increase 1.4s ease-in-out forwards" },
