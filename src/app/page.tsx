@@ -6,7 +6,7 @@ import { InstagramIcon } from "@/components/Icons/InstagramIcon";
 import OrderWrapper from "@/components/home/OrderWrapper";
 import { LocationIcon } from "@/components/Icons/LocationIcon";
 
-export const revalidate = 60;
+export const revalidate = 1800;
 
 export default function Page() {
   return (
