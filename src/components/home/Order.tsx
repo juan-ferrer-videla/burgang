@@ -16,7 +16,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
     e.preventDefault();
     window.open(
       `https://wa.me/${phone}?text=${encodeURI(
-        `${string}\ndirección de envío: ${address}${
+        `${string}\nDirección de envío: ${address}${
           comment ? `\nComentario: ${comment}` : ""
         }`,
       )}`,
