@@ -10,6 +10,7 @@ export type TCartAtom = Record<
     price_cash: number;
     price_card: number;
     option: TOption;
+    itemId: string;
   }
 >;
 

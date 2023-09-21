@@ -28,6 +28,7 @@ model Section {
   description String @default("")
   order Int
   special Boolean
+  extras Boolean @default(false)
   products Product[]
 }
 

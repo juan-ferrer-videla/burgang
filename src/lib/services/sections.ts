@@ -1,21 +1,19 @@
 import prisma from "../prisma";
-import { cache } from "react";
 
-export const revalidate = 1800; // revalidate the data at most every hour
-
-export const getSections = cache(async () => {
+export const getSections = async () => {
   const sections = await prisma.section.findMany({
     include: { products: { orderBy: { order: "asc" } } },
     orderBy: { order: "asc" },
   });
   return sections;
-});
+};
 
 export const createSection = async (
   title: string,
   description: string,
   order: number,
   special: boolean,
+  extras: boolean,
 ) => {
   await prisma.section.create({
     data: {
@@ -23,6 +21,7 @@ export const createSection = async (
       description,
       order,
       special,
+      extras,
     },
   });
 };
@@ -40,10 +39,11 @@ export const updateSection = async (
   title: string,
   description: string,
   special: boolean,
+  extras: boolean,
 ) => {
   await prisma.section.update({
     where: { id },
-    data: { title, description, special },
+    data: { title, description, special, extras },
   });
 };
 

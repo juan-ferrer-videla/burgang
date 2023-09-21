@@ -1,12 +1,23 @@
 "use client";
 
 import { cartAtom, isOpenOrderAtom, payMethodAtom } from "@/atoms";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import React, { FC, FormEventHandler, useId, useMemo } from "react";
 import { TOption, TPhone } from "@/types";
 import ResetOrder from "./ResetOrder";
+import { MinusIcon } from "../Icons/MinusIcon";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
+  const setItem = useSetAtom(cartAtom);
+  const decrementItem = (itemId: string) => {
+    setItem((prev) => ({
+      ...prev,
+      [itemId]: {
+        ...prev[itemId],
+        count: prev[itemId].count - 1,
+      },
+    }));
+  };
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     const formData = new FormData(e.currentTarget);
     const phone = formData.get("place") as string;
@@ -49,7 +60,10 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   const orderToBuy = useMemo(
     () =>
       Object.entries(order).reduce(
-        (acc, [id, { count, option, price_card, price_cash, title }]) => {
+        (
+          acc,
+          [id, { count, option, price_card, price_cash, title, itemId }],
+        ) => {
           if (count) {
             acc.push({
               count,
@@ -58,6 +72,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
               price_cash,
               title,
               id,
+              itemId,
             });
           }
           return acc;
@@ -69,6 +84,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
           price_card: number;
           price_cash: number;
           id: string;
+          itemId: string;
         }[],
       ),
     [order],
@@ -76,13 +92,16 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
 
   let string = useMemo(
     () =>
-      Object.entries(order).reduce((acc, [_, { count, option, title }]) => {
-        if (count) {
-          acc += `${title.toUpperCase()} - ${count} - ${option}`;
-          acc += "\n------------------\n";
-        }
-        return acc;
-      }, ""),
+      Object.entries(order).reduce(
+        (acc, [_, { count, option, title, itemId }]) => {
+          if (count) {
+            acc += `${title.toUpperCase()} - ${count} - ${option}`;
+            acc += "\n------------------\n";
+          }
+          return acc;
+        },
+        "",
+      ),
     [order],
   );
   string += `\nMétodo de pago: ${
@@ -99,11 +118,21 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
         {totalCash > 0 ? (
           <section className="mx-auto mb-4 max-w-3xl overflow-auto rounded border-8 border-dashed border-black bg-primary p-6 text-black shadow-lg shadow-primary/20 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16">
             <ul className="">
-              {orderToBuy.map(({ count, id, title, option }) => (
+              {orderToBuy.map(({ count, id, title, option, itemId }) => (
                 <li key={id} className="mb-4 border-b-2 border-b-black pb-2">
                   <div className="mb-2 flex items-center justify-between gap-x-4">
                     <h3 className="text-xl font-black uppercase">{title}</h3>
-                    <p className="text-xl font-black">{count}</p>
+                    <div className="flex items-center gap-x-4">
+                      <button
+                        onClick={() => {
+                          decrementItem(itemId);
+                        }}
+                        className="rounded border border-primary bg-black "
+                      >
+                        <MinusIcon size={"sm"} className="stroke-primary" />
+                      </button>
+                      <p className="text-xl font-black">{count}</p>
+                    </div>
                   </div>
                   <div className="flex gap-x-3 font-shadows font-semibold">
                     {option}

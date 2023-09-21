@@ -5,6 +5,7 @@ export type TSection = {
   order: number;
   special: boolean;
   products: TProduct[];
+  extras: boolean;
 };
 
 export type TProduct = {
@@ -22,9 +23,4 @@ export type TPhone = {
   phone: string;
   name: string;
 };
-export type TOption =
-  | "carne"
-  | "sin tacc"
-  | "veggie"
-  | "veggie y sin tacc"
-  | "";
+export type TOption = string;

@@ -26,8 +26,9 @@ export const createSectionAction = async (
   description: string,
   order: number,
   special: boolean,
+  extras: boolean,
 ) => {
-  await createSection(title, description, order, special);
+  await createSection(title, description, order, special, extras);
   revalidatePath("/admin/content-manager");
 };
 
@@ -41,8 +42,9 @@ export const updateSectionAction = async (
   title: string,
   description: string,
   special: boolean,
+  extras: boolean,
 ) => {
-  await updateSection(id, title, description, special);
+  await updateSection(id, title, description, special, extras);
   revalidatePath("/admin/content-manager");
 };
 

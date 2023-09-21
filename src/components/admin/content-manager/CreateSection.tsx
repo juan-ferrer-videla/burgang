@@ -22,6 +22,7 @@ export const CreateSection: FC<{ max: number | null }> = ({ max }) => {
     const title = data.get("title") as string;
     const description = data.get("description") as string;
     const special = data.get("special") === "special";
+    const extras = !!data.get("extras");
     console.log(data.get("special"));
 
     await createSectionAction(
@@ -29,6 +30,7 @@ export const CreateSection: FC<{ max: number | null }> = ({ max }) => {
       description,
       max === null ? 0 : max + 1,
       special,
+      extras,
     );
     formRef.current?.reset();
     handleClose();
@@ -68,6 +70,10 @@ export const CreateSection: FC<{ max: number | null }> = ({ max }) => {
                 id="normal"
                 defaultChecked
               />
+            </div>
+            <div className="mb-2 flex gap-x-2">
+              <label htmlFor="extras">Extras para burgers</label>
+              <input type="checkbox" name="extras" id="extras" />
             </div>
             <div className="mt-8 flex items-center justify-between">
               <CreateSectionSubmit />

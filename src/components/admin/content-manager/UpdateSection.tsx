@@ -33,7 +33,8 @@ const UpdateSection: FC<Props> = ({
     const title = data.get("title") as string;
     const description = data.get("description") as string;
     const special = data.get("special") === "special";
-    await updateSectionAction(sectionId, title, description, special);
+    const extras = !!data.get("extras");
+    await updateSectionAction(sectionId, title, description, special, extras);
     handleClose();
   };
 
@@ -79,6 +80,10 @@ const UpdateSection: FC<Props> = ({
                 value="normal"
                 defaultChecked={!special}
               />
+            </div>
+            <div className="mb-2 flex gap-x-2">
+              <label htmlFor="extras">Extras para burgers</label>
+              <input type="checkbox" name="extras" id="extras" />
             </div>
             <div className="mt-8 flex items-center justify-between">
               <UpdateSectionSubmit />

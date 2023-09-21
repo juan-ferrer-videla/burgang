@@ -8,7 +8,7 @@ import { MinusIcon } from "../Icons/MinusIcon";
 import { TOption } from "@/types";
 
 export const Counter: FC<{
-  option: TOption ;
+  option: TOption;
   id: string;
   title: string;
   price_cash: number;
@@ -37,6 +37,7 @@ export const Counter: FC<{
         price_card,
         price_cash,
         option,
+        itemId: title + option,
       },
     }));
   };

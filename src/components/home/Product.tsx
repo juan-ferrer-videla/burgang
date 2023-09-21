@@ -2,6 +2,7 @@ import { TProduct, TSection } from "@/types";
 import React, { type FC } from "react";
 import Price from "./Price";
 import { Counter } from "./Counter";
+import { BurgerOptions } from "./BurgerOptions";
 
 export const Product: FC<TProduct & { special: TSection["special"] }> = ({
   description,
@@ -47,33 +48,12 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
 
       {special ? (
         <div className="grid md:grid-cols-2 md:gap-x-14 md:gap-y-4">
-          <Counter
-            option="carne"
-            id={id}
-            title={title}
-            price_card={price_card}
-            price_cash={price_cash}
-          />
-          <Counter
-            option="sin tacc"
-            id={id}
-            title={title}
-            price_card={price_card}
-            price_cash={price_cash}
-          />
-          <Counter
-            option="veggie"
-            id={id}
-            title={title}
-            price_card={price_card}
-            price_cash={price_cash}
-          />
-          <Counter
-            option="veggie y sin tacc"
-            id={id}
-            title={title}
-            price_card={price_card}
-            price_cash={price_cash}
+          <BurgerOptions
+            product={{
+              title,
+              price_card: price_card - (price_card * discount) / 100,
+              price_cash: price_cash - (price_cash * discount) / 100,
+            }}
           />
         </div>
       ) : (
