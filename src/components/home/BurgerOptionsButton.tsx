@@ -53,11 +53,11 @@ export const BurgerOptionsButton: FC<{
         Agregar
       </button>
       {open && (
-        <Modal handleClose={handleClose}>
-          <h3 className="mb-4 text-center font-shadows font-bold uppercase">
-            Arma tu burger
+        <Modal variant handleClose={handleClose}>
+          <h3 className="mb-4 text-center font-shadows text-xl font-black uppercase">
+            Opciones Adicionales
           </h3>
-          <form onSubmit={handleSubmit} className="font-medium">
+          <form onSubmit={handleSubmit} className="font-bold">
             <fieldset>
               <legend className="sr-only">Variedad</legend>
               <div className="flex justify-between gap-x-2">
@@ -65,6 +65,7 @@ export const BurgerOptionsButton: FC<{
                   <div className="mb-2 flex gap-x-2" key={i}>
                     <label htmlFor={i.toString()}>{varietal}</label>
                     <input
+                      className="accent-black"
                       name={varietal}
                       type="checkbox"
                       value={0}
@@ -75,11 +76,14 @@ export const BurgerOptionsButton: FC<{
               </div>
             </fieldset>
             <fieldset className="mt-4">
-              <legend className="mb-2  font-shadows text-lg">Extras:</legend>
+              <legend className="mb-2  font-shadows text-lg font-black">
+                Extras:
+              </legend>
               {extras.products.map(({ title, id, price_cash }) => (
                 <div className="mb-2 flex gap-x-2" key={id}>
                   <label htmlFor={id}>{`${title} ($${price_cash})`}</label>
                   <input
+                    className="accent-black"
                     type="checkbox"
                     value={price_cash}
                     id={id}
@@ -89,7 +93,7 @@ export const BurgerOptionsButton: FC<{
               ))}
             </fieldset>
             <div className="mt-6 flex items-center justify-between gap-x-4">
-              <button className="rounded bg-primary px-6 py-2 text-lg font-bold uppercase text-black active:scale-95">
+              <button className="rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
                 Agregar
               </button>
               <button

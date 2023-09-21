@@ -4,10 +4,11 @@ import React, { FC, ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 const Modal: FC<{
+  variant?: true;
   children: ReactNode;
   handleClose: () => void;
   className?: string;
-}> = ({ children, handleClose, className = "" }) => {
+}> = ({ children, handleClose, className = "", variant }) => {
   useEffect(() => {
     const closeOnEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose();
@@ -20,18 +21,23 @@ const Modal: FC<{
   }, [handleClose]);
 
   return createPortal(
-    <div className={"fixed inset-0 grid place-items-center isolate z-50"}>
+    <div className={"fixed inset-0 isolate z-50 grid place-items-center"}>
       <div
         onClick={handleClose}
-        className="bg-black/70 absolute inset-0 -z-10 backdrop-blur-sm"
+        className="absolute inset-0 -z-10 bg-black/70 backdrop-blur-sm"
       />
       <div
-        className={`grid rounded self-start mt-[15vh] md:self-auto md:mt-0 bg-zinc-900 mx-4 min-w-[20rem] ${className}`}
+        className={`mx-4 mt-[15vh] grid min-w-[20rem] self-start rounded
+        ${
+          variant
+            ? "border-8 border-dashed border-black bg-primary text-black"
+            : "bg-zinc-900"
+        }  md:mt-0 md:self-auto ${className}`}
       >
         <div className="p-6">{children}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };
 
