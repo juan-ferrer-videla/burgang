@@ -3,7 +3,7 @@ import React from "react";
 import { Product } from "./Product";
 
 export const Cart = async () => {
-  const sections = await getSections();
+  const sections = (await getSections()).filter(({ extras }) => !extras);
 
   return (
     <ul className="mx-auto my-10 grid max-w-7xl gap-y-5 text-center text-black sm:gap-y-6 md:gap-y-7 lg:gap-y-8">

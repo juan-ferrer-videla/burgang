@@ -58,9 +58,11 @@ export default function Page() {
             </li>
             <li>
               <h3 className="mb-1 text-primary ">Nova Market</h3>
+              <p>Rondeau, Adolfo Calle y, 5521 Guaymallén</p>
             </li>
           </ul>
           <div className="my-6">
+            <h4 className="font-shadows text-xl text-primary">Horarios</h4>
             <p>Martes a sabado 12 a 16.</p>
             <p>Martes a domingo 20 a 00.</p>
           </div>
