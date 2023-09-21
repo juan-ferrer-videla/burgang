@@ -47,15 +47,13 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
       />
 
       {special ? (
-        <div className="grid md:grid-cols-2 md:gap-x-14 md:gap-y-4">
-          <BurgerOptions
-            product={{
-              title,
-              price_card: price_card - (price_card * discount) / 100,
-              price_cash: price_cash - (price_cash * discount) / 100,
-            }}
-          />
-        </div>
+        <BurgerOptions
+          product={{
+            title,
+            price_card: price_card - (price_card * discount) / 100,
+            price_cash: price_cash - (price_cash * discount) / 100,
+          }}
+        />
       ) : (
         <Counter
           option=""
