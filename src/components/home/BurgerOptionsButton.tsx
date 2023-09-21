@@ -54,10 +54,10 @@ export const BurgerOptionsButton: FC<{
       </button>
       {open && (
         <Modal variant handleClose={handleClose}>
-          <h3 className="mb-4 text-center font-shadows text-xl font-black uppercase">
+          <h3 className="mb-4 text-center font-shadows text-xl font-black uppercase sm:text-2xl">
             Opciones Adicionales
           </h3>
-          <form onSubmit={handleSubmit} className="font-bold">
+          <form onSubmit={handleSubmit} className="font-bold sm:text-xl">
             <fieldset>
               <legend className="sr-only">Variedad</legend>
               <div className="flex justify-between gap-x-2">
@@ -76,7 +76,7 @@ export const BurgerOptionsButton: FC<{
               </div>
             </fieldset>
             <fieldset className="mt-4">
-              <legend className="mb-2  font-shadows text-lg font-black">
+              <legend className="mb-2 font-shadows text-lg font-black sm:text-xl">
                 Extras:
               </legend>
               {extras.products.map(({ title, id, price_cash }) => (
@@ -93,12 +93,12 @@ export const BurgerOptionsButton: FC<{
               ))}
             </fieldset>
             <div className="mt-6 flex items-center justify-between gap-x-4">
-              <button className="mx-auto max-w-xs rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
+              <button className="max-w-xs rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95 sm:text-xl">
                 Agregar
               </button>
               <button
                 type="button"
-                className="font-medium uppercase"
+                className="font-medium uppercase sm:text-xl"
                 onClick={handleClose}
               >
                 Cancelar
