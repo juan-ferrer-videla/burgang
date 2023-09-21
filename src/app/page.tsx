@@ -26,7 +26,10 @@ export default function Page() {
               </li>
               <li>
                 <a href="#location">
-                  <LocationIcon className="h-auto stroke-primary" size={"xl"} />
+                  <LocationIcon
+                    className="h-auto stroke-primary "
+                    size={"xl"}
+                  />
                 </a>
               </li>
             </ul>

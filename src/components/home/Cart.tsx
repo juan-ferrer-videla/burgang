@@ -10,7 +10,7 @@ export const Cart = async () => {
       {sections.map(({ id, title, description, products, special }) => (
         <li
           key={id}
-          className="mb-4 rounded border-8 border-dashed border-black bg-primary p-6 shadow-lg shadow-primary/20 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16"
+          className="mb-4 rounded border-8 border-dashed border-black bg-primary p-6 shadow-lg shadow-primary/20 dark:border-primary dark:bg-black dark:text-primary sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16"
         >
           <div
             className={`${
