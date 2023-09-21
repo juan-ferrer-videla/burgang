@@ -60,12 +60,14 @@ export const BurgerOptionsButton: FC<{
           <form onSubmit={handleSubmit} className="font-bold sm:text-xl">
             <fieldset>
               <legend className="sr-only">Variedad</legend>
-              <div className="flex justify-between gap-x-2">
+              <div className="flex justify-between">
                 {VARIETALS.map((varietal, i) => (
-                  <div className="mb-2 flex gap-x-2" key={i}>
-                    <label htmlFor={i.toString()}>{varietal}</label>
+                  <div className="mb-2 flex" key={i}>
+                    <label className="pr-2" htmlFor={i.toString()}>
+                      {varietal}
+                    </label>
                     <input
-                      className="accent-black"
+                      className="h-auto accent-black sm:w-5"
                       name={varietal}
                       type="checkbox"
                       value={0}
@@ -80,10 +82,13 @@ export const BurgerOptionsButton: FC<{
                 Extras:
               </legend>
               {extras.products.map(({ title, id, price_cash }) => (
-                <div className="mb-2 flex gap-x-2" key={id}>
-                  <label htmlFor={id}>{`${title} ($${price_cash})`}</label>
+                <div className="mb-2 flex" key={id}>
+                  <label
+                    className="pr-2"
+                    htmlFor={id}
+                  >{`${title} ($${price_cash})`}</label>
                   <input
-                    className="accent-black"
+                    className="h-auto accent-black sm:w-5"
                     type="checkbox"
                     value={price_cash}
                     id={id}
