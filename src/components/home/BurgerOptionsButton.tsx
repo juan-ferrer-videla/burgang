@@ -48,7 +48,7 @@ export const BurgerOptionsButton: FC<{
     <>
       <button
         onClick={handleOpen}
-        className="mt-6 w-full rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95"
+        className="mx-auto mt-4 w-full max-w-xs rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95"
       >
         Agregar
       </button>
@@ -93,7 +93,7 @@ export const BurgerOptionsButton: FC<{
               ))}
             </fieldset>
             <div className="mt-6 flex items-center justify-between gap-x-4">
-              <button className="rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
+              <button className="mx-auto max-w-xs rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
                 Agregar
               </button>
               <button
