@@ -37,27 +37,34 @@ const Home = async () => {
         <h1 className="my-10 text-center lg:text-6xl">
           Administrador de contenido
         </h1>
-        <CreatePhone />
-        <div className="mb-4 overflow-auto sm:mb-6 md:mb-8">
-          {phones.length > 0 ? (
-            <table>
-              <thead className="bg-emerald-950">
-                <tr>
-                  <th>Nombre</th>
-                  <th>Telefono</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {phones.map((phone) => (
-                  <Phone key={phone.id} {...phone} />
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No tienes telefonos añadidos</p>
-          )}
-        </div>
+        <section>
+          <h2 className="mb-4 text-center sm:mb-6 md:mb-8">Telefonos</h2>
+          <CreatePhone />
+          <div className="mb-4 overflow-auto sm:mb-6 md:mb-8">
+            {phones.length > 0 ? (
+              <table className="mx-auto">
+                <thead className="bg-emerald-950">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {phones.map((phone) => (
+                    <Phone key={phone.id} {...phone} />
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No tienes telefonos añadidos</p>
+            )}
+          </div>
+        </section>
+        <hr />
+        <h2 className="mb-4 text-center sm:mb-6 md:mb-8">
+          Secciones de la carta
+        </h2>
         <CreateSection max={max} />
         {sections.map(
           (
