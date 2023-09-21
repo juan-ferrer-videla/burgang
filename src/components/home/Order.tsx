@@ -114,7 +114,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
         isOpen ? "translate-x-0" : "translate-x-full"
       } text-white`}
     >
-      <div className="max-h-full overflow-y-auto overscroll-y-contain px-4 pb-4 pt-24">
+      <div className="max-h-full overflow-y-auto overscroll-y-contain px-4 pb-16 pt-24">
         {totalCash > 0 ? (
           <section className="mx-auto mb-4 max-w-3xl overflow-auto rounded border-8 border-dashed border-black bg-primary p-6 text-black shadow-lg shadow-primary/20 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16">
             <ul className="">

@@ -47,7 +47,7 @@ export const Counter: FC<{
       <h3 className="mb-1 font-shadows font-bold">{option}</h3>
       <div className="flex items-center justify-center gap-x-2">
         <button
-          className="rounded bg-black p-1 text-primary"
+          className="rounded bg-black p-1 text-primary dark:border dark:border-primary"
           onClick={decrement}
         >
           <MinusIcon />
@@ -56,7 +56,7 @@ export const Counter: FC<{
           {count}
         </p>
         <button
-          className="rounded bg-black p-1 text-primary"
+          className="rounded bg-black p-1 text-primary dark:border dark:border-primary"
           onClick={increment}
         >
           <PlusIcon />
