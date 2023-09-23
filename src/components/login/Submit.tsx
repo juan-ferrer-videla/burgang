@@ -8,9 +8,9 @@ const Submit = () => {
   return (
     <button
       disabled={pending}
-      className="px-6 py-2 bg-emerald-900/40 rounded-full mb-4 mt-3 border border-emerald-700 hover:bg-emerald-900 disabled:bg-zinc-800 disabled:border-zinc-800"
+      className="mb-4 mt-3 rounded-full border border-emerald-700 bg-emerald-900/40 px-6 py-2 hover:bg-emerald-900 disabled:border-zinc-800 disabled:bg-zinc-800"
     >
-      {pending ? "Cargando..." : "Cambiar"}
+      {pending ? "Cargando..." : "Confirmar"}
     </button>
   );
 };
