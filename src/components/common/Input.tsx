@@ -51,7 +51,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
           <input
             className={`w-full ${
               type === "checkbox" ? "h-4 w-4" : ""
-            } rounded p-2 ${password ? "pr-12" : ""} ${className}`}
+            } rounded p-2 ${
+              password ? "pr-12" : ""
+            } ${className} text-black dark:text-white`}
             type={isPassword ? "password" : type}
             id={id}
             ref={ref}
