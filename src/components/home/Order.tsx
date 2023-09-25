@@ -6,9 +6,14 @@ import React, { FC, FormEventHandler, useId, useMemo, useState } from "react";
 import { TOption, TPhone } from "@/types";
 import ResetOrder from "./ResetOrder";
 import { MinusIcon } from "../Icons/MinusIcon";
+import Modal from "../common/Modal";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   const [delivery, setDelivery] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
+  const [wspLink, setWspLink] = useState("");
   const setItem = useSetAtom(cartAtom);
   const decrementItem = (itemId: string) => {
     setItem((prev) => ({
@@ -22,14 +27,15 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     const formData = new FormData(e.currentTarget);
     const phone = formData.get("place") as string;
-    const address = formData.get("address") as string;
-    const comment = formData.get("comment") as string;
+    /*     const address = formData.get("address") as string;
+     */ const comment = formData.get("comment") as string;
 
     e.preventDefault();
-    window.open(
+    handleOpen();
+    setWspLink(
       `https://wa.me/${phone}?text=${encodeURI(
-        `${string}\nDirección de envío: ${address}${
-          comment ? `\nComentario: ${comment}` : ""
+        `${string}${comment ? `\nComentario: ${comment}` : ""}\n${
+          delivery ? "Delivery" : "Takeaway"
         }`,
       )}`,
     );
@@ -213,6 +219,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                 <div className="flex flex-col">
                   <div>
                     <input
+                      className="accent-current"
                       type="radio"
                       value={"takeaway"}
                       name="mode"
@@ -230,6 +237,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                   </div>
                   <div>
                     <input
+                      className="accent-current"
                       type="radio"
                       value={"delivery"}
                       name="mode"
@@ -249,7 +257,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                   </div>
                 </div>
               </fieldset>
-              {delivery && (
+              {/*  {delivery && (
                 <div className="mb-4">
                   <label
                     htmlFor="address"
@@ -266,7 +274,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                     maxLength={255}
                   />
                 </div>
-              )}
+              )} */}
               <div className="mb-4">
                 <label
                   htmlFor="comment"
@@ -282,6 +290,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                   maxLength={255}
                 />
               </div>
+
               <button className="mt-6 w-full rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95">
                 pedir
               </button>
@@ -294,6 +303,32 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
           </p>
         )}
       </div>
+      {openModal && (
+        <Modal handleClose={handleClose} variant>
+          <div className="text-center font-medium">
+            <p>Generaremos un chat de Whatsapp.</p>
+            <p className="mb-2">Envia el texto autogenerado.</p>
+            {delivery && (
+              <p className="font-bold">
+                Luego de enviar el mensaje comparte la ubicación de entrega.
+              </p>
+            )}
+            <div className="mt-6 flex items-center justify-between">
+              <a
+                className=" block cursor-pointer rounded bg-black px-10 py-2 text-lg font-bold uppercase text-primary active:scale-95"
+                href={wspLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Pedir
+              </a>
+              <button onClick={handleClose} type="button">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </aside>
   );
 };
