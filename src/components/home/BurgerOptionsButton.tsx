@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, FormEventHandler, useState } from "react";
+import React, { FC, FormEventHandler, useId, useState } from "react";
 import Modal from "../common/Modal";
 import { TProduct, type TSection } from "@/types";
 import { useSetAtom } from "jotai";
@@ -10,6 +10,7 @@ export const BurgerOptionsButton: FC<{
   extras: TSection;
   product: Pick<TProduct, "title" | "price_cash" | "price_card">;
 }> = ({ extras, product }) => {
+  const commentId = useId();
   const VARIETALS = ["Veggie", "Sin TACC"] as const;
   const setItem = useSetAtom(cartAtom);
   const [open, setOpen] = useState(false);
@@ -18,13 +19,16 @@ export const BurgerOptionsButton: FC<{
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const formDataObj = Object.fromEntries(formData);
+    const { comment, ...formDataObj } = Object.fromEntries(formData);
     const extraValue = Object.values(formDataObj).reduce(
       (acc, value) => acc + Number(value),
       0,
     );
-    console.log(extraValue);
+    console.log(formDataObj, extraValue);
     const varietalNames = Object.keys(formDataObj);
+    if (typeof comment === "string" && comment.length > 0) {
+      varietalNames.push(comment);
+    }
 
     const itemTitle =
       product.title +
@@ -32,9 +36,15 @@ export const BurgerOptionsButton: FC<{
     setItem((prev) => ({
       ...prev,
       [itemTitle]: {
-        comment: prev[itemTitle]?.comment || "",
+        comment:
+          typeof comment === "string"
+            ? comment
+            : prev[itemTitle]?.comment || "",
         count: prev[itemTitle]?.count ? prev[itemTitle].count + 1 : 1,
-        option: varietalNames.join(" - "),
+        option:
+          typeof comment === "string" && comment.length > 0
+            ? varietalNames.slice(0, varietalNames.length - 1).join(" - ")
+            : varietalNames.join(" - "),
         price_card: product.price_card + extraValue,
         price_cash: product.price_cash + extraValue,
         title: product.title,
@@ -96,6 +106,17 @@ export const BurgerOptionsButton: FC<{
                   />
                 </div>
               ))}
+            </fieldset>
+            <fieldset className="mt-4 flex flex-col text-center">
+              <label htmlFor={commentId} className="mb-2 text-xl font-bold">
+                Comentario:
+              </label>
+              <textarea
+                maxLength={255}
+                name="comment"
+                id={commentId}
+                className="bg-black/30 p-2 font-inter font-medium"
+              />
             </fieldset>
             <div className="mt-6 flex items-center justify-between gap-x-4">
               <button className="max-w-xs rounded bg-black px-6 py-2 text-lg font-bold uppercase text-primary active:scale-95  sm:text-xl">

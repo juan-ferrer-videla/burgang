@@ -12,6 +12,7 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
   price_cash,
   special,
   title,
+  
 }) => {
   return (
     <li

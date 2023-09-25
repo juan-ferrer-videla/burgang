@@ -8,5 +8,9 @@ export const BurgerOptions: FC<{
 }> = async ({ product }) => {
   const extras = (await getSections()).find(({ extras }) => extras);
   if (!extras) return null;
-  return <BurgerOptionsButton extras={extras} product={product} />;
+  return (
+    <>
+      <BurgerOptionsButton extras={extras} product={product} />
+    </>
+  );
 };

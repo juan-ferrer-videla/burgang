@@ -69,7 +69,10 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
       Object.entries(order).reduce(
         (
           acc,
-          [id, { count, option, price_card, price_cash, title, itemId }],
+          [
+            id,
+            { count, option, price_card, price_cash, title, itemId, comment },
+          ],
         ) => {
           if (count) {
             acc.push({
@@ -80,6 +83,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
               title,
               id,
               itemId,
+              comment,
             });
           }
           return acc;
@@ -91,6 +95,7 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
           price_card: number;
           price_cash: number;
           id: string;
+          comment: string;
           itemId: string;
         }[],
       ),
@@ -100,9 +105,12 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
   let string = useMemo(
     () =>
       Object.entries(order).reduce(
-        (acc, [_, { count, option, title, itemId }]) => {
+        (acc, [_, { count, option, title, comment }]) => {
           if (count) {
             acc += `${title.toUpperCase()} - ${count} - ${option}`;
+            if (comment) {
+              acc += `\nComentario: ${comment}`;
+            }
             acc += "\n------------------\n";
           }
           return acc;
@@ -125,27 +133,37 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
         {totalCash > 0 ? (
           <section className="mx-auto mb-4 max-w-3xl overflow-auto rounded border-8 border-dashed border-black bg-primary p-6 text-black shadow-lg shadow-primary/20 sm:mb-6 sm:p-8 md:mb-8 md:p-12 lg:mb-10 lg:p-16">
             <ul className="">
-              {orderToBuy.map(({ count, id, title, option, itemId }) => (
-                <li key={id} className="mb-4 border-b-2 border-b-black pb-2">
-                  <div className="mb-2 flex items-center justify-between gap-x-4">
-                    <h3 className="text-xl font-black uppercase">{title}</h3>
-                    <div className="flex items-center gap-x-4">
-                      <button
-                        onClick={() => {
-                          decrementItem(itemId);
-                        }}
-                        className="rounded border border-primary bg-black "
-                      >
-                        <MinusIcon size={"sm"} className="stroke-primary" />
-                      </button>
-                      <p className="text-xl font-black">{count}</p>
+              {orderToBuy.map(
+                ({ count, id, title, option, itemId, comment }) => (
+                  <li key={id} className="mb-4 border-b-2 border-b-black pb-2">
+                    <div className="mb-2 flex items-center justify-between gap-x-4">
+                      <h3 className="text-xl font-black uppercase">{title}</h3>
+                      <div className="flex items-center gap-x-4">
+                        <button
+                          onClick={() => {
+                            decrementItem(itemId);
+                          }}
+                          className="rounded border border-primary bg-black "
+                        >
+                          <MinusIcon size={"sm"} className="stroke-primary" />
+                        </button>
+                        <p className="text-xl font-black">{count}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex gap-x-3 font-shadows font-semibold">
-                    {option}
-                  </div>
-                </li>
-              ))}
+                    <div>
+                      <p className="font-shadows font-semibold">{option}</p>
+                      {comment && (
+                        <p className="flex gap-x-3 font-inter font-medium">
+                          <span className="font-shadows font-bold">
+                            Comentario:
+                          </span>{" "}
+                          {comment}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                ),
+              )}
             </ul>
             <form onSubmit={handleSubmit}>
               <fieldset className="flex justify-center gap-x-6">
