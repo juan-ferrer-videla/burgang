@@ -2,12 +2,13 @@
 
 import { cartAtom, isOpenOrderAtom, payMethodAtom } from "@/atoms";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import React, { FC, FormEventHandler, useId, useMemo } from "react";
+import React, { FC, FormEventHandler, useId, useMemo, useState } from "react";
 import { TOption, TPhone } from "@/types";
 import ResetOrder from "./ResetOrder";
 import { MinusIcon } from "../Icons/MinusIcon";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
+  const [delivery, setDelivery] = useState(true);
   const setItem = useSetAtom(cartAtom);
   const decrementItem = (itemId: string) => {
     setItem((prev) => ({
@@ -204,22 +205,68 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                   </div>
                 ))}
               </fieldset>
-              <div className="mb-4">
-                <label
-                  htmlFor="address"
-                  className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
-                >
-                  Dirección de entrega:
-                </label>
-                <textarea
-                  id="address"
-                  name="address"
-                  className="w-full rounded bg-black/40 p-2 font-inter text-lg font-semibold  text-black"
-                  required
-                  minLength={4}
-                  maxLength={255}
-                />
-              </div>
+
+              <fieldset className="my-4 sm:my-6 md:my-8 lg:my-10">
+                <legend className="mb-2 text-lg font-black uppercase sm:text-xl md:text-2xl">
+                  Donde consumir
+                </legend>
+                <div className="flex flex-col">
+                  <div>
+                    <input
+                      type="radio"
+                      value={"takeaway"}
+                      name="mode"
+                      id="takeaway"
+                      onChange={(e) => {
+                        setDelivery(false);
+                      }}
+                    />
+                    <label
+                      htmlFor="takeaway"
+                      className="text pl-2 font-shadows font-black uppercase sm:text-lg md:text-xl"
+                    >
+                      Takeaway
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      value={"delivery"}
+                      name="mode"
+                      id={"delivery"}
+                      defaultChecked
+                      onChange={(e) => {
+                        setDelivery(true);
+                      }}
+                    />
+
+                    <label
+                      htmlFor="delivery"
+                      className="text pl-2 font-shadows font-black uppercase sm:text-lg md:text-xl"
+                    >
+                      Delivery
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+              {delivery && (
+                <div className="mb-4">
+                  <label
+                    htmlFor="address"
+                    className="mb-2 block text-lg font-black uppercase sm:text-xl md:text-2xl"
+                  >
+                    Dirección de entrega:
+                  </label>
+                  <textarea
+                    id="address"
+                    name="address"
+                    className="w-full rounded bg-black/40 p-2 font-inter text-lg font-semibold  text-black"
+                    required
+                    minLength={4}
+                    maxLength={255}
+                  />
+                </div>
+              )}
               <div className="mb-4">
                 <label
                   htmlFor="comment"
