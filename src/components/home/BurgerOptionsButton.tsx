@@ -64,7 +64,7 @@ export const BurgerOptionsButton: FC<{
       </button>
       {open && (
         <Modal variant handleClose={handleClose}>
-          <h3 className="mb-4 text-center font-shadows text-xl font-black uppercase sm:text-2xl">
+          <h3 className="font-quicksands mb-4 text-center text-xl font-black uppercase sm:text-2xl">
             Opciones Adicionales
           </h3>
           <form onSubmit={handleSubmit} className="font-bold sm:text-xl">
@@ -88,7 +88,7 @@ export const BurgerOptionsButton: FC<{
               </div>
             </fieldset>
             <fieldset className="mt-4">
-              <legend className="mb-2 font-shadows text-lg font-black sm:text-xl">
+              <legend className="font-quicksands mb-2 text-lg font-black sm:text-xl">
                 Extras:
               </legend>
               {extras.products.map(({ title, id, price_cash }) => (

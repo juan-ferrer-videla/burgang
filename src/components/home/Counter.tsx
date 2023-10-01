@@ -44,7 +44,7 @@ export const Counter: FC<{
 
   return (
     <div className="mb-4">
-      <h3 className="mb-1 font-shadows font-bold">{option}</h3>
+      <h3 className="font-quicksands mb-1 font-bold">{option}</h3>
       <div className="flex items-center justify-center gap-x-2">
         <button
           className="rounded bg-black p-1 text-primary "

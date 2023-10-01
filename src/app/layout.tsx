@@ -1,15 +1,14 @@
 import "./globals.css";
-import { Inter, Merienda } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 import { type Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
-const shadows = Merienda({
+const redRose = Montserrat({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-shadows",
+  variable: "--font-quicksand",
 });
 
 const metadataTitle = "Burgang";
@@ -37,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${shadows.variable} ${inter.variable}  min-h-screen `}>
+      <body className={`${redRose.variable} ${inter.variable}  min-h-screen `}>
         {children}
       </body>
     </html>

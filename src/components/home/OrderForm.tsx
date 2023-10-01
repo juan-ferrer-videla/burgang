@@ -99,7 +99,7 @@ const OrderForm: FC<{ phones: TPhone[] }> = ({ phones }) => {
                 className="accent-current"
               />
               <label
-                className="text pl-2 font-shadows font-black uppercase sm:text-lg md:text-xl"
+                className="text font-quicksands pl-2 font-black uppercase sm:text-lg md:text-xl"
                 htmlFor={id}
               >
                 {name}
@@ -126,7 +126,7 @@ const OrderForm: FC<{ phones: TPhone[] }> = ({ phones }) => {
               />
               <label
                 htmlFor="takeaway"
-                className="text pl-2 font-shadows font-black uppercase sm:text-lg md:text-xl"
+                className="text font-quicksands pl-2 font-black uppercase sm:text-lg md:text-xl"
               >
                 Takeaway
               </label>
@@ -146,7 +146,7 @@ const OrderForm: FC<{ phones: TPhone[] }> = ({ phones }) => {
 
               <label
                 htmlFor="delivery"
-                className="text pl-2 font-shadows font-black uppercase sm:text-lg md:text-xl"
+                className="text font-quicksands pl-2 font-black uppercase sm:text-lg md:text-xl"
               >
                 Delivery
               </label>

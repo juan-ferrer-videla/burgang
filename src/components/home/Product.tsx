@@ -12,7 +12,6 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
   price_cash,
   special,
   title,
-  
 }) => {
   return (
     <li
@@ -33,8 +32,8 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
           <p
             className={
               special
-                ? "font-shadows font-semibold uppercase italic sm:text-lg md:text-xl lg:text-2xl"
-                : "font-shadows text-sm font-semibold uppercase italic sm:text-base md:text-lg lg:text-xl"
+                ? "font-quicksands font-semibold uppercase italic sm:text-lg md:text-xl lg:text-2xl"
+                : "font-quicksands text-sm font-semibold uppercase italic sm:text-base md:text-lg lg:text-xl"
             }
           >
             {description}

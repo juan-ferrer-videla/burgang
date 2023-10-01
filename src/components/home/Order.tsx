@@ -1,25 +1,13 @@
 "use client";
 
-import { cartAtom, isOpenOrderAtom, orderAtom, totalCashAtom } from "@/atoms";
-import { useAtomValue, useSetAtom } from "jotai";
+import { isOpenOrderAtom, orderAtom, totalCashAtom } from "@/atoms";
+import { useAtomValue } from "jotai";
 import React, { type FC } from "react";
 import { type TPhone } from "@/types";
-import { MinusIcon } from "../Icons/MinusIcon";
 import OrderForm from "./OrderForm";
+import { RemoveItem } from "./RemoveItem";
 
 const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
-  const setItem = useSetAtom(cartAtom);
-
-  const decrementItem = (itemId: string) => {
-    setItem((prev) => ({
-      ...prev,
-      [itemId]: {
-        ...prev[itemId],
-        count: prev[itemId].count - 1,
-      },
-    }));
-  };
-
   const isOpen = useAtomValue(isOpenOrderAtom);
   const totalCash = useAtomValue(totalCashAtom);
   const orderToBuy = useAtomValue(orderAtom);
@@ -40,22 +28,15 @@ const Order: FC<{ phones: TPhone[] }> = ({ phones }) => {
                     <div className="mb-2 flex items-center justify-between gap-x-4">
                       <h3 className="text-xl font-black uppercase">{title}</h3>
                       <div className="flex items-center gap-x-4">
-                        <button
-                          onClick={() => {
-                            decrementItem(itemId);
-                          }}
-                          className="rounded border border-primary bg-black "
-                        >
-                          <MinusIcon size={"sm"} className="stroke-primary" />
-                        </button>
+                        <RemoveItem itemId={itemId} />
                         <p className="text-xl font-black">{count}</p>
                       </div>
                     </div>
                     <div>
-                      <p className="font-shadows font-semibold">{option}</p>
+                      <p className="font-quicksands font-semibold">{option}</p>
                       {comment && (
                         <p className="flex gap-x-3 font-inter font-medium">
-                          <span className="font-shadows font-bold">
+                          <span className="font-quicksands font-bold">
                             Comentario:
                           </span>{" "}
                           {comment}
