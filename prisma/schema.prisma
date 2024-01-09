@@ -27,9 +27,8 @@ model Section {
   title String
   description String @default("")
   order Int
-  special Boolean
-  extras Boolean @default(false)
   products Product[]
+  extras Extra[]
 }
 
 model User {
@@ -42,4 +41,14 @@ model Phone {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
   phone String @unique
+}
+
+model Extra {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  price Int
+  title String
+  description String @default("")
+  order Int @default(0)
+  sectionId String @db.ObjectId
+  section   Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)
 }

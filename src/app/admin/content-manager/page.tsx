@@ -68,13 +68,12 @@ const Home = async () => {
         <CreateSection max={max} />
         {sections.map(
           (
-            { id: sectionId, title, description, products, order, special },
+            { id: sectionId, title, description, products, order, extras },
             index,
             arr,
           ) => (
             <Fragment key={sectionId}>
               <Section
-                special={special}
                 sectionId={sectionId}
                 title={title}
                 description={description}
@@ -84,6 +83,7 @@ const Home = async () => {
                 isLast={index === sections.length - 1}
                 sections={sections}
                 index={index}
+                extras={extras}
               />
               {arr.length - 1 !== index && <hr />}
             </Fragment>

@@ -16,6 +16,13 @@ import {
   moveProductUp,
   updateProduct,
 } from "@/lib/services/products";
+import {
+  createExtra,
+  deleteExtra,
+  moveExtraDown,
+  moveExtraUp,
+  updateExtra,
+} from "@/lib/services/extras";
 
 export const getSectionsAction = async () => {
   return await getSections();
@@ -25,10 +32,8 @@ export const createSectionAction = async (
   title: string,
   description: string,
   order: number,
-  special: boolean,
-  extras: boolean,
 ) => {
-  await createSection(title, description, order, special, extras);
+  await createSection(title, description, order);
   revalidatePath("/admin/content-manager");
 };
 
@@ -41,10 +46,8 @@ export const updateSectionAction = async (
   id: string,
   title: string,
   description: string,
-  special: boolean,
-  extras: boolean,
 ) => {
-  await updateSection(id, title, description, special, extras);
+  await updateSection(id, title, description);
   revalidatePath("/admin/content-manager");
 };
 
@@ -116,5 +119,39 @@ export const moveProductUpAction = async (
   prevOrder: number,
 ) => {
   await moveProductUp(order, id, prevId, prevOrder);
+  revalidatePath("/admin/content-manager");
+};
+
+export const createExtraAction = async (
+  ...args: Parameters<typeof createExtra>
+) => {
+  await createExtra(...args);
+  revalidatePath("/admin/content-manager");
+};
+
+export const deleteExtraAction = async (
+  ...args: Parameters<typeof deleteExtra>
+) => {
+  await deleteExtra(...args);
+  revalidatePath("/admin/content-manager");
+};
+
+export const updateExtraAction = async (
+  ...args: Parameters<typeof updateExtra>
+) => {
+  await updateExtra(...args);
+  revalidatePath("/admin/content-manager");
+};
+
+export const moveExtraDownAction = async (
+  ...args: Parameters<typeof moveExtraDown>
+) => {
+  await moveExtraDown(...args);
+  revalidatePath("/admin/content-manager");
+};
+export const moveExtraUpAction = async (
+  ...args: Parameters<typeof moveExtraUp>
+) => {
+  await moveExtraUp(...args);
   revalidatePath("/admin/content-manager");
 };

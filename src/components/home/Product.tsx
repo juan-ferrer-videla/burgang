@@ -1,10 +1,12 @@
-import { TProduct, TSection } from "@/types";
+import { TExtra, TProduct } from "@/types";
 import React, { type FC } from "react";
 import Price from "./Price";
 import { Counter } from "./Counter";
-import { BurgerOptions } from "./BurgerOptions";
+import { BurgerOptionsButton } from "./BurgerOptionsButton";
 
-export const Product: FC<TProduct & { special: TSection["special"] }> = ({
+export const Product: FC<
+  TProduct & { special: boolean } & { extras: TExtra[] }
+> = ({
   description,
   discount,
   id,
@@ -12,6 +14,7 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
   price_cash,
   special,
   title,
+  extras,
 }) => {
   return (
     <li
@@ -47,7 +50,8 @@ export const Product: FC<TProduct & { special: TSection["special"] }> = ({
       />
 
       {special ? (
-        <BurgerOptions
+        <BurgerOptionsButton
+          extras={extras}
           product={{
             title,
             price_card: price_card - (price_card * discount) / 100,

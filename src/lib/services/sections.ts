@@ -2,7 +2,10 @@ import prisma from "../prisma";
 
 export const getSections = async () => {
   const sections = await prisma.section.findMany({
-    include: { products: { orderBy: { order: "asc" } } },
+    include: {
+      products: { orderBy: { order: "asc" } },
+      extras: { orderBy: { order: "asc" } },
+    },
     orderBy: { order: "asc" },
   });
   return sections;
@@ -12,16 +15,12 @@ export const createSection = async (
   title: string,
   description: string,
   order: number,
-  special: boolean,
-  extras: boolean,
 ) => {
   await prisma.section.create({
     data: {
       title,
       description,
       order,
-      special,
-      extras,
     },
   });
 };
@@ -38,12 +37,10 @@ export const updateSection = async (
   id: string,
   title: string,
   description: string,
-  special: boolean,
-  extras: boolean,
 ) => {
   await prisma.section.update({
     where: { id },
-    data: { title, description, special, extras },
+    data: { title, description },
   });
 };
 

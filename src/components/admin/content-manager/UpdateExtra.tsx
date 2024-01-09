@@ -2,19 +2,21 @@
 
 import Modal from "@/components/common/Modal";
 import React, { FC, useState } from "react";
+import { updateExtraAction } from "@/actions/content-manager";
 import Input from "@/components/common/Input";
 import Textarea from "@/components/common/Textarea";
 import { EditIcon } from "@/components/Icons/EditIcon";
-import UpdateSectionSubmit from "./UpdateSectionSubmit";
-import { updateSectionAction } from "@/actions/content-manager";
+import UpdateProductSubmit from "./UpdateProductSubmit";
+import type { TExtra } from "@/types";
+import { parse, string, number } from "valibot";
 
 interface Props {
-  sectionId: string;
-  title: string;
-  description: string;
+  defaultProduct: Omit<TExtra, "order">;
 }
 
-const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
+export const UpdateExtra: FC<Props> = ({
+  defaultProduct: { description, id, price, title },
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -24,21 +26,23 @@ const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
     setIsOpen(false);
   };
   const handleAction = async (data: FormData) => {
-    const title = data.get("title") as string;
-    const description = data.get("description") as string;
-    await updateSectionAction(sectionId, title, description);
+    const title = parse(string(), data.get("title"));
+    const description = parse(string(), data.get("description"));
+    const price = parse(number(), Number(data.get("price")));
+    await updateExtraAction({ description, id, price, title });
+
     handleClose();
   };
 
   return (
     <>
-      <button onClick={handleOpen} className="enabled:active:scale-95">
+      <button onClick={handleOpen} className="p-2 enabled:active:scale-95">
         <EditIcon />
       </button>
       {isOpen && (
         <Modal handleClose={handleClose}>
           <form action={handleAction}>
-            <h2 className="mb-8 mt-2 text-center">Editar Seccion</h2>
+            <h2 className="mb-8 mt-2 text-center">Editar Producto</h2>
             <Input
               label="Titulo"
               required
@@ -51,8 +55,15 @@ const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
               defaultValue={description}
               name="description"
             />
+            <Input
+              label="Precio"
+              required
+              defaultValue={price}
+              name="price"
+              type="number"
+            />
             <div className="mt-8 flex items-center justify-between">
-              <UpdateSectionSubmit />
+              <UpdateProductSubmit />
               <button type="button" onClick={handleClose}>
                 Cancelar
               </button>
@@ -63,5 +74,3 @@ const UpdateSection: FC<Props> = ({ sectionId, title, description }) => {
     </>
   );
 };
-
-export default UpdateSection;

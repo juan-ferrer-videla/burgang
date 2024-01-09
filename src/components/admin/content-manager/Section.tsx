@@ -5,7 +5,7 @@ import DeleteSectionButton from "./DeleteSectionButton";
 import CreateProduct from "./CreateProduct";
 import UpdateSection from "./UpdateSection";
 import { Product } from "./Product";
-import { TSection, type TProduct } from "@/types";
+import type { TSection, TProduct, TExtra } from "@/types";
 import {
   moveSectionUpAction,
   moveSectionDownAction,
@@ -13,20 +13,23 @@ import {
 
 import { MoveUpButton } from "./MoveUpButton";
 import { MoveDownButton } from "./MoveDownButton";
+import { CreateExtra } from "./CreateExtra";
+import { DeleteExtra } from "./DeleteExtra";
+import { UpdateExtra } from "./UpdateExtra";
+import { ExtrasTable } from "./ExtrasTable";
 
 export const Section: FC<{
   sectionId: string;
   title: string;
   order: number;
-  special: boolean;
   description: string;
   products: TProduct[];
   isFirst: boolean;
   isLast: boolean;
   index: number;
   sections: TSection[];
+  extras: TExtra[];
 }> = ({
-  special,
   description,
   products,
   sectionId,
@@ -36,6 +39,7 @@ export const Section: FC<{
   isFirst,
   isLast,
   sections,
+  extras,
 }) => {
   const next = sections[index + 1];
   const prev = sections[index - 1];
@@ -57,7 +61,6 @@ export const Section: FC<{
           sectionId={sectionId}
           title={title}
           description={description}
-          special={special}
         />
         <div className="grid">
           {!isFirst && <MoveUpButton moveUp={moveUp} />}
@@ -113,7 +116,8 @@ export const Section: FC<{
       ) : (
         <p className="my-6 text-center">No tienes productos aún.</p>
       )}
-
+      <CreateExtra sectionId={sectionId} extras={extras} />
+      {extras.length > 0 && <ExtrasTable extras={extras} />}
       <DeleteSectionButton id={sectionId} />
     </section>
   );

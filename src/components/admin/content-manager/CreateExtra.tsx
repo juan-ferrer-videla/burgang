@@ -2,12 +2,16 @@
 
 import Input from "@/components/common/Input";
 import Textarea from "@/components/common/Textarea";
-import React, { type FC, useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import Modal from "@/components/common/Modal";
-import CreateSectionSubmit from "./CreateSectionSubmit";
-import { createSectionAction } from "@/actions/content-manager";
+import CreateProductSubmit from "./CreateProductSubmit";
+import { createExtraAction } from "@/actions/content-manager";
+import { type TExtra } from "@/types";
 
-export const CreateSection: FC<{ max: number | null }> = ({ max }) => {
+export const CreateExtra: FC<{ extras: TExtra[]; sectionId: string }> = ({
+  extras,
+  sectionId,
+}) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,12 +21,14 @@ export const CreateSection: FC<{ max: number | null }> = ({ max }) => {
   const handleClose = () => {
     setIsOpen(false);
   };
+  const order = extras.length === 0 ? 0 : extras[extras.length - 1].order + 1;
 
   const action = async (data: FormData) => {
     const title = data.get("title") as string;
     const description = data.get("description") as string;
+    const price = Number(data.get("price"));
 
-    await createSectionAction(title, description, max === null ? 0 : max + 1);
+    await createExtraAction({ order, price, description, title }, sectionId);
     formRef.current?.reset();
     handleClose();
   };
@@ -30,19 +36,20 @@ export const CreateSection: FC<{ max: number | null }> = ({ max }) => {
   return (
     <>
       <button
-        onClick={handleOpen}
         className="mx-auto block rounded-full border border-emerald-700 bg-emerald-900/40 px-6 py-2 hover:bg-emerald-900 enabled:active:scale-95 disabled:border-zinc-700 disabled:bg-zinc-800"
+        onClick={handleOpen}
       >
-        Crear Sección
+        Añadir extra
       </button>
       {isOpen && (
         <Modal handleClose={handleClose}>
-          <form className="mb-4" action={action} ref={formRef}>
-            <h2 className="my-6 mt-2 text-center">Crear nueva sección</h2>
+          <form action={action} ref={formRef}>
+            <h2 className="my-2 mb-6">Crear nuevo producto</h2>
             <Input label="Titulo" name="title" required autoFocus />
             <Textarea label="Descripción" name="description" />
+            <Input label="Precio" name="price" type="number" required />
             <div className="mt-8 flex items-center justify-between">
-              <CreateSectionSubmit />
+              <CreateProductSubmit />
               <button onClick={handleClose} type="button">
                 Cancelar
               </button>

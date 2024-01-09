@@ -2,12 +2,12 @@
 
 import React, { FC, FormEventHandler, useId, useState } from "react";
 import Modal from "../common/Modal";
-import { TProduct, type TSection } from "@/types";
+import { TExtra, TProduct } from "@/types";
 import { useSetAtom } from "jotai";
 import { cartAtom } from "@/atoms";
 
 export const BurgerOptionsButton: FC<{
-  extras: TSection;
+  extras: TExtra[];
   product: Pick<TProduct, "title" | "price_cash" | "price_card">;
 }> = ({ extras, product }) => {
   const commentId = useId();
@@ -91,16 +91,16 @@ export const BurgerOptionsButton: FC<{
               <legend className="font-quicksands mb-2 text-lg font-black sm:text-xl">
                 Extras:
               </legend>
-              {extras.products.map(({ title, id, price_cash }) => (
+              {extras.map(({ title, id, price }) => (
                 <div className="mb-2 flex" key={id}>
                   <label
                     className="pr-2"
                     htmlFor={id}
-                  >{`${title} ($${price_cash})`}</label>
+                  >{`${title} ($${price})`}</label>
                   <input
                     className="h-auto accent-black sm:w-5"
                     type="checkbox"
-                    value={price_cash}
+                    value={price}
                     id={id}
                     name={title}
                   />

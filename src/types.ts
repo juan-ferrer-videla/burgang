@@ -1,12 +1,6 @@
-export type TSection = {
-  id: string;
-  title: string;
-  description: string;
-  order: number;
-  special: boolean;
-  products: TProduct[];
-  extras: boolean;
-};
+import { getSections } from "./lib/services/sections";
+
+export type TSection = Awaited<ReturnType<typeof getSections>>[number];
 
 export type TProduct = {
   id: string;
@@ -24,3 +18,5 @@ export type TPhone = {
   name: string;
 };
 export type TOption = string;
+
+export type TExtra = TSection["extras"][number];
